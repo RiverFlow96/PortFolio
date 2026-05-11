@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Terminal } from "../components/Terminal";
+import { FloatingParticles } from "../components/FloatingParticles";
 
 export function Hero() {
   const [text, setText] = useState("");
+  const [parallaxY, setParallaxY] = useState(0);
+  const sectionRef = useRef(null);
   const fullText = "Building Fast, Scalable Web Experiences";
 
   useEffect(() => {
@@ -18,12 +21,48 @@ export function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const scrollPercent = 1 - Math.max(0, Math.min(1, rect.bottom / window.innerHeight));
+        setParallaxY(scrollPercent * 100);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(6,182,212,0.10)_0%,_transparent_70%)]" />
+      {/* Parallax gradient background */}
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(6,182,212,0.10)_0%,_transparent_70%)]"
+        style={{ transform: `translateY(${parallaxY * 0.5}px)` }}
+      />
+
+      {/* Parallax floating particles */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{ transform: `translateY(${parallaxY * 0.3}px)` }}
+      >
+        <FloatingParticles />
+      </div>
+
+      {/* Gradient accent circles - parallax effect */}
+      <div 
+        className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"
+        style={{ transform: `translateY(${parallaxY * 0.4}px)` }}
+      />
+      <div 
+        className="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl"
+        style={{ transform: `translateY(${-parallaxY * 0.3}px)` }}
+      />
 
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <div className="font-mono text-cyan-500 mb-4 text-sm">

@@ -10,8 +10,8 @@ portafolio/
 ## Frontend Commands
 ```bash
 cd frontend
-npm run dev         # Dev server (port 5173+ if occupied)
-npm run build      # Production build (tsc + vite build)
+npm run dev         # Dev server (port 5173+)
+npm run build       # Production build (tsc + vite build)
 npm run type-check # TypeScript validation only
 npm run preview    # Preview production build
 ```
@@ -24,7 +24,7 @@ python manage.py runserver  # Start on port 8000
 ```
 
 ## Dev Server Proxy
-Vite proxies `/api` and `/media` to `http://localhost:8000`. Always use relative paths (`/api/endpoint`), never absolute URLs.
+Vite proxies `/api` and `/media` to `http://localhost:8000`. Use relative paths (`/api/endpoint`), never absolute URLs.
 
 ## Environment Setup
 - Frontend: copy `frontend/.env.example` → `frontend/.env`
@@ -34,26 +34,41 @@ Vite proxies `/api` and `/media` to `http://localhost:8000`. Always use relative
 ## Architecture
 - **Routing**: React Router 6 in `frontend/src/router/router.tsx`
 - **State**: Zustand stores in `frontend/src/store/`
-- **API**: Axios in `frontend/src/api/`, uses `/api` proxy
-- **UI**: Tailwind CSS + custom components
+- **Data**: `frontend/src/datas/portfolio.json` + GitHub API via `usePortfolio.ts`
+- **SEO**: react-helmet-async in `frontend/src/components/SEO.tsx`
+- **PWA**: manifest.json + service worker (sw.js)
+
+## Key Sections (in order)
+- Hero: typewriter effect, scroll indicator
+- About: animated counters, avatar with gradient
+- Projects: cards with modal, difficulty tags, filtering (search, tech, sort)
+- TechStack: spinning wheel animation on hover
+- Contact: form with validation, loading/success/error states
+
+## Key Files
+- `frontend/src/main.tsx` - Entry point, registers service worker
+- `frontend/src/App.tsx` - Root with SEO component
+- `frontend/src/datas/portfolio.json` - Centralized data (profile, projects, tech, social)
+- `frontend/src/sections/` - All page sections
+- `frontend/src/components/SEO.tsx` - Meta tags, Open Graph, JSON-LD schema
+- `frontend/src/components/LazyImage.tsx` - Lazy loading with IntersectionObserver
+
+## Style
+- Dark cyber theme (`#0a0a0f` background, `#06b6d4` cyan, `#ec4899` pink)
+- Inter font, JetBrains Mono for code
+- Fade-in scroll animations via IntersectionObserver
 
 ## TypeScript
 - All source files are `.tsx` or `.ts`
-- tsconfig.json uses `moduleResolution: bundler`
 - Build runs `tsc && vite build` - type errors fail the build
+- Run `npm run type-check` before committing
 
-## Style
-- Dark cyber theme (`#0a0a0f` background, `#8b5cf6` accent)
-- Inter font, mono for code
-- Fade-in scroll animations via IntersectionObserver
-
-## Key Files
-- `frontend/src/main.tsx` - Entry point
-- `frontend/src/App.tsx` - Root component
-- `frontend/src/sections/` - Page sections (Hero, About, Projects, TechStack, Contact, HowIWork)
-- `frontend/src/components/` - Reusable components (Terminal, RiverFlowLogo, FloatingParticles)
-- `frontend/src/hooks/useScrollReveal.ts` - Scroll reveal hook
+## PWA
+- Service worker caches static assets and images for offline
+- manifest.json for installable web app
+- Replace `G-XXXXXXXXXX` in SEO.tsx with real Google Analytics ID
 
 ## Common Issues
-- Sections not showing: Check IntersectionObserver ref usage - prefer direct refs over complex hook wrappers
+- Sections not showing: Check IntersectionObserver ref usage
 - Type errors: Run `npm run type-check` before committing
+- GitHub API rate limited: fallback data in portfolio.json works offline

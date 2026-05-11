@@ -1,21 +1,42 @@
+import { useEffect, useRef } from "react";
 import { socials } from "../datas/social_medias";
-import { useScrollRevealStagger } from "../hooks/useScrollReveal";
 
-export function Contact() {
-  const reveals = useScrollRevealStagger(2, 200);
+export function Contact(): JSX.Element {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.reveal').forEach((el, i) => {
+            setTimeout(() => {
+              el.classList.add('visible');
+            }, i * 200);
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="contact" className="min-h-screen py-24 relative">
+    <section id="contact" ref={sectionRef} className="min-h-screen py-24 relative">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="font-mono text-cyan-500 mb-8 text-sm">
+        <div className="font-mono text-cyan-500 mb-8 text-sm reveal">
           <span className="text-emerald-400">#</span> contact
         </div>
 
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 reveal">
           ¿Habl<span className="text-gradient-cyan">amos</span>?
         </h2>
 
-        <p className="text-gray-400 mb-12 max-w-xl">
+        <p className="text-gray-400 mb-12 max-w-xl reveal">
           Estoy siempre abierto a nuevas oportunidades, colaboraciones y proyectos 
           desafiantes. Ya sea que tengas una idea innovadora, necesites consultoría 
           técnica o simplemente quieras saludar, ¡me encantaría escucharte!
@@ -23,11 +44,7 @@ export function Contact() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left column - Social links */}
-          <div
-            ref={reveals[0]?.ref}
-            className={`space-y-6 transition-all duration-700 ${reveals[0]?.animationClass}`}
-            style={reveals[0]?.style}
-          >
+          <div className="space-y-6 reveal">
             <h3 className="text-xl font-semibold text-white">Conectemos</h3>
             <div className="flex flex-col gap-4">
               {socials.map((social) => (
@@ -49,11 +66,7 @@ export function Contact() {
           </div>
 
           {/* Right column - Form */}
-          <div
-            ref={reveals[1]?.ref}
-            className={`bg-[#0f0f14] border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-500/40 transition-all duration-700 ${reveals[1]?.animationClass}`}
-            style={reveals[1]?.style}
-          >
+          <div className="bg-[#0f0f14] border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-500/40 transition-all duration-700 reveal">
             <h3 className="text-xl font-semibold text-white mb-6">
               Envía un mensaje
             </h3>
@@ -89,6 +102,18 @@ export function Contact() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 }

@@ -6,7 +6,25 @@ import {
   SiGit, SiGithub, SiMake 
 } from 'react-icons/si';
 
-const technologies = [
+type IconComponent = React.ComponentType<any>;
+
+interface Technology {
+  name: string;
+  icon: IconComponent;
+  color: string;
+}
+
+interface Category {
+  id: string;
+  label: string;
+  color: string;
+  borderColor: string;
+  hoverColor: string;
+  bgHover: string;
+  tech: Technology[];
+}
+
+const technologies: Technology[] = [
   { name: 'React', icon: SiReact, color: '#61dafb' },
   { name: 'TypeScript', icon: SiTypescript, color: '#3178c6' },
   { name: 'JavaScript', icon: SiJavascript, color: '#f7df1e' },
@@ -22,7 +40,7 @@ const technologies = [
   { name: 'Make', icon: SiMake, color: '#14b8a6' },
 ];
 
-function AnimatedAtom() {
+function AnimatedAtom(): JSX.Element {
   return (
     <svg
       className="absolute inset-0 w-full h-full"
@@ -51,10 +69,8 @@ function AnimatedAtom() {
   );
 }
 
-function TechCarousel() {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
+function TechCarousel(): JSX.Element {
+  useEffect((): (() => void) => {
     const style = document.createElement('style');
     style.textContent = `
       @keyframes infiniteScroll {
@@ -76,10 +92,7 @@ function TechCarousel() {
 
   return (
     <div className="relative w-full overflow-hidden py-6">
-      <div
-        ref={containerRef}
-        className="relative w-full overflow-hidden"
-      >
+      <div className="relative w-full overflow-hidden">
         <div className="carousel-track flex gap-6">
           {[...technologies, ...technologies].map((tech, i) => (
             <div
@@ -116,7 +129,13 @@ function TechCarousel() {
   );
 }
 
-function TechItem({ tech, index, isExpanded }) {
+interface TechItemProps {
+  tech: Technology;
+  index: number;
+  isExpanded: boolean;
+}
+
+function TechItem({ tech, index, isExpanded }: TechItemProps): JSX.Element {
   const Icon = tech.icon;
   
   return (
@@ -155,7 +174,7 @@ function TechItem({ tech, index, isExpanded }) {
   );
 }
 
-const categories = [
+const categories: Category[] = [
   {
     id: 'frontend',
     label: 'Frontend',
@@ -185,7 +204,14 @@ const categories = [
   },
 ];
 
-function CategoryButton({ category, isExpanded, onToggle, isVisible }) {
+interface CategoryButtonProps {
+  category: Category;
+  isExpanded: boolean;
+  onToggle: (categoryId: string) => void;
+  isVisible: boolean;
+}
+
+function CategoryButton({ category, isExpanded, onToggle, isVisible }: CategoryButtonProps): JSX.Element {
   return (
     <div className={`
       transition-all duration-700
@@ -235,10 +261,10 @@ function CategoryButton({ category, isExpanded, onToggle, isVisible }) {
   );
 }
 
-export function TechStack() {
-  const sectionRef = useRef(null);
+export function TechStack(): JSX.Element {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -257,7 +283,7 @@ export function TechStack() {
     return () => observer.disconnect();
   }, []);
 
-  const handleToggle = (categoryId) => {
+  const handleToggle = (categoryId: string): void => {
     setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
   };
 

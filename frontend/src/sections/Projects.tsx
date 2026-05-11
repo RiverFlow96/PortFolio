@@ -2,9 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github, ArrowUpRight, TrendingUp } from "lucide-react";
 import { projects } from "../datas/projects";
 
-function ProjectCard({ project, index, isVisible }) {
-  const [isHovered, setIsHovered] = useState(false);
-  
+interface Project {
+  title: string;
+  problem: string;
+  solution: string;
+  results: {
+    performance: string;
+    loadTime: string;
+    uptime: string;
+  };
+  description: string;
+  tech: string[];
+  github: string;
+  demo: string;
+}
+
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+  isVisible: boolean;
+}
+
+function ProjectCard({ project, index, isVisible }: ProjectCardProps): JSX.Element {
   return (
     <div
       className={`
@@ -14,8 +33,6 @@ function ProjectCard({ project, index, isVisible }) {
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
       style={{ transitionDelay: `${index * 0.1}s` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={`
         absolute inset-0 bg-gradient-to-br from-cyan-600/5 to-transparent
@@ -125,8 +142,8 @@ function ProjectCard({ project, index, isVisible }) {
   );
 }
 
-export function Projects() {
-  const sectionRef = useRef(null);
+export function Projects(): JSX.Element {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

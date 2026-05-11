@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { Lightbulb, Code2, Rocket } from 'lucide-react';
+import { Lightbulb, Code2, Rocket, LucideIcon } from 'lucide-react';
 
-const processSteps = [
+interface ProcessStep {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  color: string;
+  borderColor: string;
+  bgColor: string;
+  number: string;
+}
+
+const processSteps: ProcessStep[] = [
   {
     title: 'Ideación',
     description: 'Entiende el problema, defino requisitos y diseño una arquitectura escalable.',
@@ -31,7 +41,13 @@ const processSteps = [
   }
 ];
 
-function ProcessCard({ step, index, isVisible }) {
+interface ProcessCardProps {
+  step: ProcessStep;
+  index: number;
+  isVisible: boolean;
+}
+
+function ProcessCard({ step, index, isVisible }: ProcessCardProps): JSX.Element {
   const Icon = step.icon;
 
   return (
@@ -125,8 +141,13 @@ function ProcessCard({ step, index, isVisible }) {
   );
 }
 
-export function HowIWork() {
-  const sectionRef = useRef(null);
+interface PhaseInfo {
+  phase: string;
+  techs: string[];
+}
+
+export function HowIWork(): JSX.Element {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -145,6 +166,21 @@ export function HowIWork() {
 
     return () => observer.disconnect();
   }, []);
+
+  const phases: PhaseInfo[] = [
+    {
+      phase: 'Ideación',
+      techs: ['Figma', 'Architecture Design', 'Requirements Analysis', 'Database Schema']
+    },
+    {
+      phase: 'Desarrollo',
+      techs: ['React/Vue', 'Django/FastAPI', 'PostgreSQL', 'API Design', 'Testing']
+    },
+    {
+      phase: 'Deployment',
+      techs: ['Docker', 'CI/CD Pipelines', 'Performance Optimization', 'Monitoring', 'Security']
+    }
+  ];
 
   return (
     <section
@@ -190,20 +226,7 @@ export function HowIWork() {
           grid md:grid-cols-3 gap-6 transition-all duration-700 delay-500
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
         `}>
-          {[
-            {
-              phase: 'Ideación',
-              techs: ['Figma', 'Architecture Design', 'Requirements Analysis', 'Database Schema']
-            },
-            {
-              phase: 'Desarrollo',
-              techs: ['React/Vue', 'Django/FastAPI', 'PostgreSQL', 'API Design', 'Testing']
-            },
-            {
-              phase: 'Deployment',
-              techs: ['Docker', 'CI/CD Pipelines', 'Performance Optimization', 'Monitoring', 'Security']
-            }
-          ].map((phase) => (
+          {phases.map((phase) => (
             <div
               key={phase.phase}
               className="bg-[#0f0f14]/80 backdrop-blur-sm border border-cyan-500/10 rounded-xl p-6 text-center"

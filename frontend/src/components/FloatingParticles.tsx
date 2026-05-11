@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-export function FloatingParticles() {
-  useEffect(() => {
+export function FloatingParticles(): JSX.Element {
+  useEffect((): (() => void) => {
     const style = document.createElement('style');
     style.textContent = `
       @keyframes float {

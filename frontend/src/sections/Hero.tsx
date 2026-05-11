@@ -2,10 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { Terminal } from "../components/Terminal";
 import { FloatingParticles } from "../components/FloatingParticles";
 
-export function Hero() {
+export function Hero(): JSX.Element {
   const [text, setText] = useState("");
   const [parallaxY, setParallaxY] = useState(0);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const fullText = "Building Fast, Scalable Web Experiences";
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
         const scrollPercent = 1 - Math.max(0, Math.min(1, rect.bottom / window.innerHeight));

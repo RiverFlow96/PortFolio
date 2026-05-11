@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import { RiverFlowLogo } from "../components/RiverFlowLogo";
 
-export function Navbar() {
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+export function Navbar(): JSX.Element {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { label: "Sobre mí", href: "#about" },
     { label: "Stack", href: "#stack" },
     { label: "Proyectos", href: "#projects" },

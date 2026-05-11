@@ -1,7 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Copy, Check } from 'lucide-react';
 
-const commands = {
+interface Command {
+  output: string;
+  description: string;
+}
+
+interface HistoryItem {
+  command: string;
+  output: string;
+  completed: boolean;
+}
+
+interface TerminalLineProps {
+  command: string;
+  output: string;
+  isTyping: boolean;
+}
+
+const commands: Record<string, Command> = {
   whoami: {
     output: `Developer-Designer | React + Django Fullstack
 Passionate about building fast, scalable web experiences
@@ -63,7 +79,7 @@ Ready to discuss your next project? Let's talk!`,
   }
 };
 
-function TerminalLine({ command, output, isTyping }) {
+function TerminalLine({ command, output, isTyping }: TerminalLineProps): JSX.Element {
   const [displayedOutput, setDisplayedOutput] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
@@ -99,15 +115,14 @@ function TerminalLine({ command, output, isTyping }) {
   );
 }
 
-export function Terminal() {
-  const [history, setHistory] = useState([
+export function Terminal(): JSX.Element {
+  const [history, setHistory] = useState<HistoryItem[]>([
     { command: 'whoami', output: commands.whoami.output, completed: true }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [copied, setCopied] = useState(null);
 
-  const handleCommand = (cmd) => {
+  const handleCommand = (cmd: string): void => {
     const trimmedCmd = cmd.trim().toLowerCase();
 
     if (trimmedCmd === '') return;
@@ -140,16 +155,10 @@ export function Terminal() {
     setInput('');
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       handleCommand(input);
     }
-  };
-
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(null), 2000);
   };
 
   return (
@@ -195,7 +204,7 @@ export function Terminal() {
 
       {/* Quick Commands */}
       <div className="flex flex-wrap gap-2 mt-6 pt-4 border-t border-cyan-500/10">
-        {Object.entries(commands).map(([cmd]) => (
+        {Object.keys(commands).map((cmd) => (
           <button
             key={cmd}
             onClick={() => {

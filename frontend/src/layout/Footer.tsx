@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Github, Linkedin, Mail, Code2 } from 'lucide-react';
 import { RiverFlowLogo } from '../components/RiverFlowLogo';
 
-export function Footer() {
+export function Footer(): JSX.Element {
   const [easterEgg, setEasterEgg] = useState(false);
   const [clickCount, setClickCount] = useState(0);
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (): void => {
     setClickCount(clickCount + 1);
     if (clickCount === 2) {
       setEasterEgg(true);

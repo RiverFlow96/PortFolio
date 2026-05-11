@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 
-export function RiverFlowLogo({ size = 'md', animated = true }) {
+interface RiverFlowLogoProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  animated?: boolean;
+}
+
+export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoProps): JSX.Element {
   const sizeMap = {
     sm: 24,
     md: 32,
@@ -10,7 +15,7 @@ export function RiverFlowLogo({ size = 'md', animated = true }) {
 
   const dimension = sizeMap[size];
 
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!animated) return;
 
     const style = document.createElement('style');

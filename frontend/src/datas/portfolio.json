@@ -1,0 +1,114 @@
+{
+  "config": {
+    "githubUsername": "RiverFlow96",
+    "fallback": {
+      "profile": {
+        "name": "RiverFlow",
+        "title": "Developer-Designer Fullstack",
+        "tagline": "Building Fast, Scalable Web Experiences",
+        "bio": [
+          "Soy desarrollador fullstack apasionado por crear soluciones web elegantes, rápidas y escalables.",
+          "Mi enfoque está en arquitectura moderna, clean code y best practices.",
+          "Cuando no estoy codificando, me encuentro explorando nuevas tecnologías."
+        ],
+        "location": "🌍 Worldwide",
+        "status": "Open to exciting projects"
+      }
+    }
+  },
+  "profile": {
+    "name": "RiverFlow",
+    "title": "Developer-Designer Fullstack",
+    "tagline": "Building Fast, Scalable Web Experiences",
+    "bio": [
+      "Soy desarrollador fullstack apasionado por crear soluciones web elegantes, rápidas y escalables. Me especializo en transformar ideas complejas en aplicaciones que combinan rendimiento excepcional con experiencia de usuario intuitiva.",
+      "Mi enfoque está en arquitectura moderna, clean code y best practices. Trabajo con React, Django y TypeScript para construir productos que generan impacto real. Siempre busco aprender, optimizar y mejorar.",
+      "Cuando no estoy codificando, me encuentro explorando nuevas tecnologías, contribuyendo a proyectos open source o ayudando a otros desarrolladores a resolver problemas complejos."
+    ],
+    "location": "🌍 Worldwide",
+    "status": "Open to exciting projects"
+  },
+  "social": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/RiverFlow96",
+      "icon": "github"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://linkedin.com/in/riverflow",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Email",
+      "href": "mailto:contact@riverflow.dev",
+      "icon": "mail"
+    },
+    {
+      "label": "Twitter",
+      "href": "https://twitter.com/riverflow",
+      "icon": "twitter"
+    }
+  ],
+  "stats": [
+    { "label": "Proyectos", "value": 4, "suffix": "+", "color": "cyan" },
+    { "label": "Tecnologías", "value": 15, "suffix": "+", "color": "pink" },
+    { "label": "Años exp.", "value": 3, "suffix": "+", "color": "emerald" },
+    { "label": "Commits", "value": 500, "suffix": "+", "color": "cyan" },
+    { "label": "Líneas código", "value": 50, "suffix": "K+", "color": "pink" },
+    { "label": "Coffee ☕", "value": null, "suffix": "∞", "color": "emerald" }
+  ],
+  "philosophy": [
+    { "icon": "cyan", "text": "Performance First" },
+    { "icon": "pink", "text": "Clean, Maintainable Code" },
+    { "icon": "emerald", "text": "User-Focused Design" }
+  ],
+  "tech": {
+    "frontend": [
+      { "name": "React", "icon": "SiReact", "color": "#61dafb" },
+      { "name": "TypeScript", "icon": "SiTypescript", "color": "#3178c6" },
+      { "name": "JavaScript", "icon": "SiJavascript", "color": "#f7df1e" },
+      { "name": "HTML", "icon": "SiHtml5", "color": "#e34c26" },
+      { "name": "CSS", "icon": "SiCss", "color": "#563d7c" }
+    ],
+    "backend": [
+      { "name": "Django", "icon": "SiDjango", "color": "#092e20" },
+      { "name": "Python", "icon": "SiPython", "color": "#3776ab" },
+      { "name": "PostgreSQL", "icon": "SiPostgresql", "color": "#336791" }
+    ],
+    "tools": [
+      { "name": "Git", "icon": "SiGit", "color": "#f1502f" },
+      { "name": "GitHub", "icon": "SiGithub", "color": "#ffffff" },
+      { "name": "VS Code", "icon": "Code", "color": "#007acc" },
+      { "name": "Docker", "icon": "SiDocker", "color": "#2496ed" }
+    ]
+  },
+  "terminal": {
+    "commands": {
+      "whoami": {
+        "output": "Developer-Designer | React + Django Fullstack\nPassionate about building fast, scalable web experiences\nLocation: 🌍 Worldwide\nStatus: Open to exciting projects",
+        "description": "Who am I"
+      },
+      "ls projects": {
+        "output": "[1] E-commerce Platform\n    └─ Impact: 45% faster checkout flow\n    └─ Tech: React, Django, PostgreSQL\n\n[2] Real-time Dashboard\n    └─ Impact: 99.9% uptime achieved\n    └─ Tech: React, WebSocket, Node.js\n\n[3] API Gateway\n    └─ Impact: 60% reduction in response time\n    └─ Tech: Django REST, PostgreSQL, Redis",
+        "description": "List projects"
+      },
+      "cat skills.txt": {
+        "output": "FRONTEND:\n├─ React 18 (Hooks, Context, Performance)\n├─ TypeScript (Type-safe development)\n├─ Tailwind CSS (Utility-first design)\n└─ Responsive & accessible UIs\n\nBACKEND:\n├─ Django & Django REST Framework\n├─ PostgreSQL (Complex queries, optimization)\n└─ API design & RESTful principles\n\nTOOLS:\n├─ Git & GitHub (Version control)\n├─ Docker (Containerization)\n└─ Performance optimization",
+        "description": "Show technical skills"
+      },
+      "help": {
+        "output": "Available commands:\n├─ whoami        Show who I am\n├─ ls projects   List my projects\n├─ cat skills.txt Display my tech stack\n├─ contact      Get in touch\n└─ clear        Clear terminal",
+        "description": "Show help"
+      },
+      "contact": {
+        "output": "📧 Email: contact@riverflow.dev\n💼 LinkedIn: linkedin.com/in/riverflow\n🐙 GitHub: github.com/RiverFlow96\n🌐 Portfolio: riverflow.dev\n\nReady to discuss your next project?",
+        "description": "Contact information"
+      }
+    }
+  },
+  "cta": {
+    "primary": { "text": "Explorar Stack", "href": "#stack" },
+    "secondary": { "text": "Ver Proyectos", "href": "#projects" }
+  }
+}

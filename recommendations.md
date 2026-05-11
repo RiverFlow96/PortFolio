@@ -1,165 +1,135 @@
 # 📋 Recomendaciones para Mejorar el Portafolio
-## 1. 🎨 DISEÑO & UX
-### 1.1 Hero Section - CTA Más Impactante
-**Problema:** El hero actual es bueno pero el CTA podría ser más atractivo
-**Recomendación:** 
-- Agregar scroll indicator más visible
-- Animar el texto con efecto typewriter más rápido
-- Agregar "Scroll para ver más" con animación
-### 1.2 About Section - Estadísticas Animadas
-**Problema:** Las estadísticas (4+, 15+, 3+ años) están estáticas
-**Recomendación:**
-- Agregar animación de contador (0 → valor final) cuando entra en viewport
-- Añadir más métricas relevantes (commits, líneas de código, etc.)
-- Agregar foto/avatar del desarrollador
-### 1.3 Projects Section - Card Interactivas Mejoradas
-**Problema:** Las cards son buenas pero podrían tener más interactividad
-**Recomendación:**
-- Agregar preview de imagen para cada proyecto
-- Añadir tags de dificultad (Easy/Medium/Hard)
-- Mostrar "time to build" para cada proyecto
-- Agregar modal/drawer con descripción completa
-### 1.4 TechStack - Animación de Rueda
-**Problema:** Está en AGENTS.md como TODO
-**Recomendación:** 
-- Crear animación de "rueda de tecnologías" en lugar de carrusel
-- Las techs giran alrededor de un centro
-- Efecto 3D o parallax
-### 1.5 Contact Form - Funcional
-**Problema:** El formulario no está funcional
-**Recomendación:**
-- Conectar a un servicio (EmailJS, Nodemailer, etc.)
-- Agregar validación de campos
-- Feedback visual (loading, success, error)
-- Guardar mensajes en base de datos
+
+## ✅ COMPLETADOS (Implementados)
+
+### 1. DISEÑO & UX
+- [x] 1.1 Hero - Scroll indicator + typewriter más rápido
+- [x] 1.2 About - Contadores animados + avatar
+- [x] 1.3 Projects - Cards interactivas + modal + difficulty tags + time-to-build
+- [x] 1.4 TechStack - Wheel animation con tecnologías orbitando
+- [x] 1.5 Contact Form - Validación + estados (loading/success/error)
+
+### 2. FUNCIONALIDADES
+- [x] 2.2 Filtrado de Proyectos - Búsqueda + filtros por tech + ordenamiento
+- ❌ 2.1 Tema Oscuro/Claro - Eliminado por complejidad
+- ❌ 2.3 Blog - No implementado
+- ❌ 2.4 Testimonios - No implementado
+
+### 3. PERFORMANCE & SEO
+- [x] 3.1 Meta Tags - Helmet + Open Graph + JSON-LD schema
+- [x] 3.2 Lazy Loading - LazyImage component con IntersectionObserver
+- [x] 3.3 Sitemap & Robots - sitemap.xml + robots.txt
+- [x] 3.4 Analytics - Google Analytics (ID placeholder: G-XXXXXXXXXX)
+
+### 4. CÓDIGO & ARQUITECTURA
+- [x] 4.1 Archivos .jsx/.js antiguos eliminados
+
+### 7. MOBILE & PWA
+- [x] 7.1 Mobile - Touch targets optimizados + menú full-screen
+- [x] 7.2 PWA - manifest.json + service worker (sw.js)
+
 ---
-## 2. 🛠️ FUNCIONALIDADES
-### 2.1 Tema Oscuro/Claro
+
+## 🔴 POR HACER (Prioridad ALTA)
+
+### A. Archivos Duplicados/sin usar
+**Recomendación:** Eliminar código muerto
+```
+frontend/src/datas/projects.ts          # No se usa (legacy)
+frontend/src/components/ui/scroll/     # useScrollAnimation no se importa en secciones
+frontend/src/hooks/useScrollReveal.ts   # No se usa (las secciones usan IntersectionObserver directo)
+```
+
+### B. Accesibilidad (A11y)
+**Problema:** Formularios sin labels proper, limited aria-labels
 **Recomendación:**
-- Agregar toggle de tema (dark/light mode)
-- Usar context o Zustand para gestionar tema
-- Persistir en localStorage
-- Mejorar accessibility
-### 2.2 Filtrado de Proyectos
+- Agregar `<label>` a todos los inputs del formulario de contacto
+- Agregar `aria-required="true"` a campos obligatorios
+- Agregar `aria-describedby` para mensajes de error
+- Agregar `role="alert"` a mensajes de validación
+
+### C. Error Boundary
+**Recomendación:** Crear ErrorBoundary para capturar errores no controlados
+```tsx
+// src/components/ErrorBoundary.tsx
+```
+
+### D. Optimización de Imágenes
+**Problema:** Imágenes de proyectos son externas (Unsplash)
 **Recomendación:**
-- Agregar filtros por tecnología
-- Búsqueda de proyectos
-- Ordenar por relevancia/fecha
-### 2.3 Blog/Artículos
+- Descargar y optimizar imágenes localmente
+- Usar WebP con fallbacks
+- Agregar blurhash para placeholders
+
+### E. Seguridad en Terminal
+**Problema:** Terminal acepta cualquier input sin sanitización
 **Recomendación:**
-- Agregar sección de blog
-- Escribir artículos sobre tus proyectos
-- SEO optimizado
-- Timestamps y reading time
-### 2.4 Testimonios/Reseñas
-**Recomendación:**
-- Agregar sección de testimonios de clientes
-- Slider animado
-- Ratings/stars
+- Validar commands permitidos (whitelist)
+- Sanitizar output antes de renderizar
+
 ---
-## 3. 📈 PERFORMANCE & SEO
-### 3.1 Meta Tags
+
+## 🟡 POR HACER (Prioridad MEDIA)
+
+### F. Testing
+**Recomendación:** Agregar Vitest + React Testing Library
+```bash
+npm install -D vitest @testing-library/react @testing-library/jest-dom
+```
+
+### G. ESLint + Prettier
+**Recomendación:** Agregar linting
+```bash
+npm install -D eslint prettier eslint-config-prettier
+```
+
+### H. Mejoras SEO
 **Recomendación:**
-- Agregar Helmet para manejar metas dinámicos
-- Open Graph tags para social media
-- Structured data (JSON-LD)
-### 3.2 Lazy Loading
+- Agregar more specific JSON-LD para proyectos
+- Agregar canonical URLs dinámicas
+- Optimizar imágenes con srcset
+
+### I. Performance
 **Recomendación:**
-- Implementar lazy loading de imágenes
-- Code splitting por rutas
-- Preload críticas
-### 3.3 Sitemap & Robots
-**Recomendación:**
-- Generar sitemap.xml
-- robots.txt adecuado
-- Submit a Google Search Console
-### 3.4 Analytics
-**Recomendación:**
-- Agregar Google Analytics
-- Track conversiones (CTA clicks, form submissions)
-- Monitorear performance
+- Code splitting por secciones (React.lazy)
+- Preload de fuentes críticas
+- Optimizar bundle analysis
+
 ---
-## 4. 💻 CÓDIGO & ARQUITECTURA
-### 4.1 Limpiar Archivos Viejos
-**Acción:** Ya hecho ✅
-- Eliminados .jsx y .js antiguos
-### 4.2 Agregar Error Boundary
-**Recomendación:**
-- Crear ErrorBoundary para capturar errores
-- Mostrar fallback UI amigable
-- Log de errores a servicio externo
-### 4.3 Testing
-**Recomendación:**
-- Agregar Vitest para unit tests
-- Testing Library para tests de componentes
-- E2E tests con Playwright/Cypress
-### 4.4 Linting & Formatting
-**Recomendación:**
-- Agregar ESLint con reglas estrictas
-- Prettier para format automático
-- Pre-commit hooks con Husky
-### 4.5 Documentación
-**Recomendación:**
-- README mejorado
-- Documentar la estructura del proyecto
-- Guía de desarrollo
+
+## 🟢 POR HACER (Prioridad BAJA)
+
+### J. Blog/Artículos
+**Recomendación:** Agregar sección blog con MDX o contenido estático
+
+### K. Testimonios
+**Recomendación:** Agregar slider de testimonios
+
+### L. Newsletter
+**Recomendación:** Agregar signup para newsletter
+
+### M. Deploy Automation
+**Recomendación:** GitHub Actions para deploy automático a Vercel
+
 ---
-## 5. 🔗 BACKEND & API
-### 5.1 Conectar a Backend
-**Recomendación:**
-- Terminar configuración de Django
-- API endpoints para:
-  - Formulario de contacto
-  - Newsletter signup
-  - Comentarios en proyectos
-### 5.2 Base de Datos
-**Recomendación:**
-- Guardar datos de contacto
-- Guardar suscriptores
-- Analytics
+
+## 📊 Estado Actual
+
+| Categoría | Completado | Pendiente |
+|-----------|-----------|-----------|
+| Diseño & UX | 80% | 20% |
+| Funcionalidades | 50% | 50% |
+| Performance & SEO | 100% | 0% |
+| Código & Arquitectura | 20% | 80% |
+| Mobile & PWA | 100% | 0% |
+| Testing | 0% | 100% |
+
 ---
-## 6. 🚀 DEPLOYMENT & HOSTING
-### 6.1 CI/CD
-**Recomendación:**
-- GitHub Actions para deploy automático
-- Run tests antes de deploy
-- Automatic deployment a Vercel/Netlify
-### 6.2 Dominio Personalizado
-**Recomendación:**
-- Comprar dominio (riverflow.dev)
-- SSL certificate
-- Email personalizado
-### 6.3 Monitoring
-**Recomendación:**
-- Sentry para error tracking
-- Uptime monitoring
-- Performance monitoring
----
-## 7. 📱 MOBILE & RESPONSIVE
-### 7.1 Mobile First
-**Recomendación:**
-- Revisar responsiveness en mobile
-- Optimizar touch targets
-- Mejorar menu mobile
-### 7.2 PWA
-**Recomendación:**
-- Agregar manifest.json
-- Service Worker
-- Funcionar offline
----
-## 🎯 PRIORIDADES (Por hacer ahora)
-### 🔴 ALTA
-1. [ ] Conectar formulario de contacto a backend
-2. [ ] Agregar animación de rueda para TechStack
-3. [ ] Mejorar imágenes/screenshots de proyectos
-4. [ ] Agregar foto/avatar
-### 🟡 MEDIA
-5. [ ] Implementar tema oscuro/claro
-6. [ ] Agregar ESLint + Prettier
-7. [ ] Mejorar metadata/SEO
-8. [ ] Agregar ErrorBoundary
-### 🟢 BAJA
-9. [ ] Blog section
-10. [ ] Testimonios
-11. [ ] Testing
-12. [ ] PWA support
+
+## 🎯 siguiente Acciones Recomendadas
+
+1. **Inmediato**: Eliminar archivos sin usar (projects.ts, useScrollReveal.ts)
+2. **Inmediato**: Crear ErrorBoundary
+3. **Esta semana**: Agregar accesibilidad al formulario
+4. **Este mes**: Agregar testing con Vitest
+5. **Este mes**: Optimizar imágenes

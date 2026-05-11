@@ -242,3 +242,7 @@ export function useTech() {
 export function useTerminalCommands() {
   return (portfolioData as any).terminal?.commands || {};
 }
+
+export function useProjects() {
+  return (portfolioData as any).projects || [];
+}

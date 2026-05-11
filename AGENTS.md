@@ -3,22 +3,23 @@
 ## Project Structure
 ```
 portafolio/
-├── frontend/      # React 18 + Vite + Tailwind CSS
-└── backend/      # Django (partially configured)
+├── frontend/      # React 18 + Vite + Tailwind CSS + TypeScript
+└── backend/       # Django (partially configured)
 ```
 
 ## Frontend Commands
 ```bash
 cd frontend
-npm run dev      # Dev server on port 5173
-npm run build   # Production build
-npm run preview # Preview production build
+npm run dev         # Dev server (port 5173+ if occupied)
+npm run build      # Production build (tsc + vite build)
+npm run type-check # TypeScript validation only
+npm run preview    # Preview production build
 ```
 
 ## Backend Commands
 ```bash
 cd backend
-source .venv/bin/activate  # Activate virtualenv
+source .venv/bin/activate   # Activate virtualenv
 python manage.py runserver  # Start on port 8000
 ```
 
@@ -34,12 +35,25 @@ Vite proxies `/api` and `/media` to `http://localhost:8000`. Always use relative
 - **Routing**: React Router 6 in `frontend/src/router/router.tsx`
 - **State**: Zustand stores in `frontend/src/store/`
 - **API**: Axios in `frontend/src/api/`, uses `/api` proxy
-- **UI**: Tailwind CSS + custom components in `frontend/src/components/ui/`
+- **UI**: Tailwind CSS + custom components
 
-## Current TODO
-- [ ] Animación de iconos de tecnologías en rueda (TechStack section)
+## TypeScript
+- All source files are `.tsx` or `.ts`
+- tsconfig.json uses `moduleResolution: bundler`
+- Build runs `tsc && vite build` - type errors fail the build
 
 ## Style
 - Dark cyber theme (`#0a0a0f` background, `#8b5cf6` accent)
 - Inter font, mono for code
-- Fade-in scroll animations, subtle glow effects
+- Fade-in scroll animations via IntersectionObserver
+
+## Key Files
+- `frontend/src/main.tsx` - Entry point
+- `frontend/src/App.tsx` - Root component
+- `frontend/src/sections/` - Page sections (Hero, About, Projects, TechStack, Contact, HowIWork)
+- `frontend/src/components/` - Reusable components (Terminal, RiverFlowLogo, FloatingParticles)
+- `frontend/src/hooks/useScrollReveal.ts` - Scroll reveal hook
+
+## Common Issues
+- Sections not showing: Check IntersectionObserver ref usage - prefer direct refs over complex hook wrappers
+- Type errors: Run `npm run type-check` before committing

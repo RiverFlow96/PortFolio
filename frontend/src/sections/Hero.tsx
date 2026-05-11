@@ -1,68 +1,49 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Terminal } from "../components/Terminal";
 import { FloatingParticles } from "../components/FloatingParticles";
 
 export function Hero(): JSX.Element {
   const [text, setText] = useState("");
-  const [parallaxY, setParallaxY] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const fullText = "Building Fast, Scalable Web Experiences";
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
-      if (index <= fullText.length) {
-        setText(fullText.slice(0, index));
+      if (index <= text.length) {
+        setText("Building Fast, Scalable Web Experiences".slice(0, index));
         index++;
       } else {
         clearInterval(interval);
       }
-    }, 50);
+    }, 30);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const handleScroll = (): void => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const scrollPercent = 1 - Math.max(0, Math.min(1, rect.bottom / window.innerHeight));
-        setParallaxY(scrollPercent * 100);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    setMounted(true);
   }, []);
+
+  const scrollToNext = (): void => {
+    const stackSection = document.getElementById("stack");
+    stackSection?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section
       id="hero"
-      ref={sectionRef}
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Parallax gradient background */}
-      <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(6,182,212,0.10)_0%,_transparent_70%)]"
-        style={{ transform: `translateY(${parallaxY * 0.5}px)` }}
-      />
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(6,182,212,0.10)_0%,_transparent_70%)]" />
 
-      {/* Parallax floating particles */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{ transform: `translateY(${parallaxY * 0.3}px)` }}
-      >
+      {/* Floating particles */}
+      <div className="absolute inset-0 opacity-20">
         <FloatingParticles />
       </div>
 
-      {/* Gradient accent circles - parallax effect */}
-      <div 
-        className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"
-        style={{ transform: `translateY(${parallaxY * 0.4}px)` }}
-      />
-      <div 
-        className="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl"
-        style={{ transform: `translateY(${-parallaxY * 0.3}px)` }}
-      />
+      {/* Gradient accent circles */}
+      <div className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+      <div className="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl" />
 
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <div className="font-mono text-cyan-500 mb-4 text-sm">
@@ -70,10 +51,7 @@ export function Hero(): JSX.Element {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-          Hola, soy{" "}
-          <span className="text-gradient-cyan">
-            RiverFlow
-          </span>
+          Hola, soy <span className="text-gradient-cyan">RiverFlow</span>
         </h1>
 
         <p className="text-2xl md:text-3xl font-mono text-gray-300 mb-12">
@@ -86,12 +64,11 @@ export function Hero(): JSX.Element {
           rápidas y escalables. Pasionado por React, Django y buenas prácticas de código.
         </p>
 
-        {/* Terminal Component */}
         <div className="mb-16">
           <Terminal />
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-24">
           <a
             href="#stack"
             className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white font-mono rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25"
@@ -106,7 +83,7 @@ export function Hero(): JSX.Element {
           </a>
         </div>
 
-        <div className="mt-16 flex justify-center gap-6 text-gray-600 font-mono text-sm">
+        <div className="flex justify-center gap-6 text-gray-600 font-mono text-sm">
           <span className="text-emerald-500">React</span>
           <span className="text-cyan-500">//</span>
           <span className="text-pink-500">Django</span>
@@ -115,19 +92,21 @@ export function Hero(): JSX.Element {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      {/* Scroll indicator */}
+      <div 
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer transition-opacity duration-700 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+        onClick={scrollToNext}
+      >
+        <span className="font-mono text-xs text-cyan-500/70">
+          Scroll para ver más ↓
+        </span>
         <svg
-          className="w-6 h-6 text-cyan-500"
+          className="w-6 h-6 text-cyan-400 animate-bounce"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
     </section>

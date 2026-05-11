@@ -111,6 +111,12 @@
     "primary": { "text": "Explorar Stack", "href": "#stack" },
     "secondary": { "text": "Ver Proyectos", "href": "#projects" }
   },
+  "contact": {
+    "email": "contact@riverflow.dev",
+    "subject": "Nuevo mensaje desde tu portfolio",
+    "successMessage": "¡Mensaje enviado! Te responderé pronto.",
+    "errorMessage": "Algo salió mal. Intenta de nuevo."
+  },
   "projects": [
     {
       "title": "FreeMarket - E-commerce Platform",

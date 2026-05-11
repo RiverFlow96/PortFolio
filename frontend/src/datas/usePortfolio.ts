@@ -246,3 +246,12 @@ export function useTerminalCommands() {
 export function useProjects() {
   return (portfolioData as any).projects || [];
 }
+
+export function useContactConfig() {
+  return (portfolioData as any).contact || {
+    email: 'contact@riverflow.dev',
+    subject: 'Nuevo mensaje desde tu portfolio',
+    successMessage: '¡Mensaje enviado! Te responderé pronto.',
+    errorMessage: 'Algo salió mal. Intenta de nuevo.'
+  };
+}

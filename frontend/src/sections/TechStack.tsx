@@ -227,15 +227,7 @@ const categories = [
     bgHover: 'hover:bg-orange-600/20',
     tech: technologies.filter(t => t.category === 'tools')
   },
-  {
-    id: 'core',
-    label: 'Core (Centro)',
-    color: 'from-pink-500 to-cyan-500',
-    borderColor: 'border-pink-500/50',
-    bgHover: 'hover:bg-pink-600/20',
-    tech: []
-  },
-];
+  ];
 
 export function TechStack(): JSX.Element {
   const sectionRef = useRef<HTMLDivElement>(null);

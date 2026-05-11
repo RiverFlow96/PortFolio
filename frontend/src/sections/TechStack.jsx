@@ -88,17 +88,17 @@ function TechCarousel() {
             >
               <div className="
                 w-14 h-14 rounded-xl
-                bg-[#0f0f14]/60 border border-purple-500/20
+                bg-[#0f0f14]/60 border border-cyan-500/20
                 flex items-center justify-center
-                group-hover:bg-purple-600/20 group-hover:border-purple-500/50
-                group-hover:shadow-lg group-hover:shadow-purple-500/20
+                group-hover:bg-cyan-600/20 group-hover:border-cyan-500/50
+                group-hover:shadow-lg group-hover:shadow-cyan-500/20
                 transition-all duration-300
               ">
                 <tech.icon size={28} style={{ color: tech.color }} />
               </div>
               <span className="
                 mt-2 text-xs font-mono text-gray-500
-                group-hover:text-purple-300
+                group-hover:text-cyan-300
                 transition-colors duration-300
                 whitespace-nowrap
               ">
@@ -135,17 +135,17 @@ function TechItem({ tech, index, isExpanded }) {
       <div className="group flex flex-col items-center transition-all duration-300">
         <div className="
           w-16 h-16 rounded-2xl
-          bg-[#0f0f14]/80 border border-purple-500/20
+          bg-[#0f0f14]/80 border border-cyan-500/20
           flex items-center justify-center
-          group-hover:bg-purple-600/20 group-hover:border-purple-500/50
-          group-hover:shadow-lg group-hover:shadow-purple-500/20
+          group-hover:bg-cyan-600/20 group-hover:border-cyan-500/50
+          group-hover:shadow-lg group-hover:shadow-cyan-500/20
           transition-all duration-300 cursor-default
         ">
           <Icon size={32} style={{ color: tech.color }} />
         </div>
         <span className="
           mt-2 text-xs font-mono text-gray-400
-          group-hover:text-purple-300
+          group-hover:text-cyan-300
           transition-colors duration-300
         ">
           {tech.name}
@@ -275,11 +275,11 @@ export function TechStack() {
           text-center mb-16 transition-all duration-700
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
         `}>
-          <div className="font-mono text-purple-500 mb-4 text-sm">
-            <span className="text-purple-400">#</span> tech-stack
+          <div className="font-mono text-cyan-500 mb-4 text-sm">
+            <span className="text-cyan-400">#</span> tech-stack
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Tecnologías que <span className="text-purple-500">uso</span>
+            Tecnologías que <span className="text-cyan-500">uso</span>
           </h2>
           
           {/* Tech Carousel */}
@@ -312,7 +312,7 @@ export function TechStack() {
           ${isVisible ? 'opacity-100' : 'opacity-0'}
         `}>
           <p className="text-gray-500 font-mono text-xs">
-            <span className="text-purple-500">&gt;</span> Total: 13 tecnologías en el stack
+            <span className="text-cyan-500">&gt;</span> Total: 13 tecnologías en el stack
           </p>
         </div>
       </div>

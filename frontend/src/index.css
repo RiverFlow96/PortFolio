@@ -12,7 +12,7 @@
   }
 
   ::selection {
-    @apply bg-purple-500/30 text-white;
+    @apply bg-cyan-500/30 text-white;
   }
 
   ::-webkit-scrollbar {
@@ -24,21 +24,52 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-purple-500/50 rounded-full;
+    @apply bg-cyan-500/50 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-purple-500;
+    @apply bg-cyan-500;
   }
 }
 
 @layer utilities {
+  /* RiverFlow Brand Colors */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-pink-500;
   }
 
-  .glow-purple {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+  .text-gradient-cyan {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-cyan-600;
+  }
+
+  .text-gradient-magenta {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-pink-600;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+  }
+
+  .glow-magenta {
+    box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+  }
+
+  /* Animation: Flow effect for brand */
+  @keyframes flow {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-flow {
+    animation: flow 2s ease-in-out infinite;
   }
 }
 

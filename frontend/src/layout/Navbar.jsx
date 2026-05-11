@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RiverFlowLogo } from "../components/RiverFlowLogo";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,15 +24,19 @@ export function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-500/20"
+          ? "bg-[#0a0a0f]/90 backdrop-blur-md border-b border-cyan-500/20"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" className="text-xl font-bold text-white font-mono">
-          <span className="text-purple-500">&lt;</span>
-          RiverFlow
-          <span className="text-purple-500">/&gt;</span>
+        <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <RiverFlowLogo size="md" animated={true} />
+          <span className="text-xl font-bold text-white font-mono hidden sm:inline">
+            <span className="text-cyan-500">&lt;</span>
+            River
+            <span className="text-gradient-pink">Flow</span>
+            <span className="text-cyan-500">/&gt;</span>
+          </span>
         </a>
 
         <div className="hidden md:flex gap-8">
@@ -39,7 +44,7 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="text-gray-400 hover:text-purple-400 transition-colors font-mono text-sm hover:underline hover:decoration-purple-400"
+              className="text-gray-400 hover:text-cyan-400 transition-colors font-mono text-sm hover:underline hover:decoration-cyan-400"
             >
               {item.label}
             </a>
@@ -76,12 +81,12 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0a0a0f]/95 backdrop-blur-md border-t border-purple-500/20">
+        <div className="md:hidden bg-[#0a0a0f]/95 backdrop-blur-md border-t border-cyan-500/20">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="block px-6 py-3 text-gray-400 hover:text-purple-400 font-mono text-sm"
+              className="block px-6 py-3 text-gray-400 hover:text-cyan-400 font-mono text-sm"
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.label}

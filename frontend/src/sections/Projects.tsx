@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-import { ExternalLink, Github, ArrowUpRight, TrendingUp, Clock, Zap, X, Search, Filter, SortAsc } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight, TrendingUp, Clock, Zap, X, Search, SortAsc } from "lucide-react";
 import { useProjects } from "../datas/usePortfolio";
+import { LazyImage } from "../components/LazyImage";
 
 interface Project {
   title: string;
@@ -41,7 +42,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         </button>
         
         <div className="relative h-48 md:h-64 overflow-hidden rounded-t-2xl">
-          <img
+          <LazyImage
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
@@ -139,7 +140,7 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
       <div className={`absolute inset-0 bg-gradient-to-br from-cyan-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
       
       <div className="relative h-40 overflow-hidden">
-        <img
+        <LazyImage
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

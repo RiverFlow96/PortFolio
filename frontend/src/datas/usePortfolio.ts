@@ -54,6 +54,7 @@ export interface Profile {
   status: string;
   avatar?: string;
   stats?: ProfileStats;
+  social?: { label: string; href: string; icon: string }[];
 }
 
 interface Config {
@@ -213,7 +214,8 @@ export function useMergedProfile(): Profile {
       followers: user.followers,
       years: yearsAgo,
       topLanguages: topLangs
-    }
+    },
+    social: (portfolioData as any).social || []
   };
 }
 

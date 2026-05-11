@@ -1,6 +1,9 @@
 import { socials } from "../datas/social_medias";
+import { useScrollRevealStagger } from "../hooks/useScrollReveal";
 
 export function Contact() {
+  const reveals = useScrollRevealStagger(2, 200);
+
   return (
     <section id="contact" className="min-h-screen py-24 relative">
       <div className="max-w-4xl mx-auto px-6">
@@ -19,7 +22,12 @@ export function Contact() {
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-6">
+          {/* Left column - Social links */}
+          <div
+            ref={reveals[0]?.ref}
+            className={`space-y-6 transition-all duration-700 ${reveals[0]?.animationClass}`}
+            style={reveals[0]?.style}
+          >
             <h3 className="text-xl font-semibold text-white">Conectemos</h3>
             <div className="flex flex-col gap-4">
               {socials.map((social) => (
@@ -40,7 +48,12 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-[#0f0f14] border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-500/40 transition-all">
+          {/* Right column - Form */}
+          <div
+            ref={reveals[1]?.ref}
+            className={`bg-[#0f0f14] border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-500/40 transition-all duration-700 ${reveals[1]?.animationClass}`}
+            style={reveals[1]?.style}
+          >
             <h3 className="text-xl font-semibold text-white mb-6">
               Envía un mensaje
             </h3>

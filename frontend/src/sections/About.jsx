@@ -1,4 +1,8 @@
+import { useScrollRevealStagger } from "../hooks/useScrollReveal";
+
 export function About() {
+  const reveals = useScrollRevealStagger(2, 150);
+
   return (
     <section id="about" className="min-h-screen py-24 relative">
       <div className="max-w-4xl mx-auto px-6">
@@ -11,7 +15,12 @@ export function About() {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-6 text-gray-400 leading-relaxed">
+          {/* Left column - Text */}
+          <div
+            ref={reveals[0]?.ref}
+            className={`space-y-6 text-gray-400 leading-relaxed transition-all duration-700 ${reveals[0]?.animationClass}`}
+            style={reveals[0]?.style}
+          >
             <p>
               Soy desarrollador fullstack apasionado por crear soluciones web
               elegantes, rápidas y escalables. Me especializo en transformar 
@@ -30,7 +39,12 @@ export function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Right column - Stats */}
+          <div
+            ref={reveals[1]?.ref}
+            className={`grid grid-cols-2 gap-4 transition-all duration-700 ${reveals[1]?.animationClass}`}
+            style={reveals[1]?.style}
+          >
             {[
               { label: "Proyectos", value: "4+", color: "cyan" },
               { label: "Tecnologías", value: "15+", color: "pink" },

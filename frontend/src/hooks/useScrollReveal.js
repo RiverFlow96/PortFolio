@@ -44,74 +44,44 @@ export function useScrollReveal(threshold = 0.1, animation = "fade") {
 
 /**
  * Hook para revelar múltiples elementos con stagger effect
- * Uso: const items = useScrollRevealStagger(2, 150);
- *      <div ref={items[0].ref} className={items[0].animationClass} style={items[0].style}>
- * @param {number} count - Número de items a animar
- * @param {number} delayMs - Delay entre cada item en ms
- * @returns {array} Array de { ref, isVisible, animationClass, style }
+ * @param {number} items - Número de items a animar
+ * @param {number} delay - Delay entre cada item en ms
+ * @returns {array} Array de refs, isVisible estados y animationClasses
  */
-export function useScrollRevealStagger(count = 3, delayMs = 100) {
-  const [visibleSet, setVisibleSet] = useState(new Set());
-  const refsMap = useRef(new Map());
+export function useScrollRevealStagger(items = 3, delay = 100) {
+  const refs = useRef(Array(items).fill(null));
+  const [visibleIndices, setVisibleIndices] = useState(new Set());
 
-  // Crear refs dinámicamente si no existen
   useEffect(() => {
-    for (let i = 0; i < count; i++) {
-      if (!refsMap.current.has(i)) {
-        refsMap.current.set(i, { current: null });
-      }
-    }
-  }, [count]);
-
-  // Setup observers para todos los refs
-  useEffect(() => {
-    const observers = [];
-
-    for (let i = 0; i < count; i++) {
-      const refObj = refsMap.current.get(i);
-      if (!refObj) continue;
-
+    const observers = refs.current.map((ref, index) => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisibleSet((prev) => {
-              const next = new Set(prev);
-              next.add(i);
-              return next;
-            });
+            setVisibleIndices((prev) => new Set(prev).add(index));
             observer.unobserve(entry.target);
           }
         },
-        { threshold: 0.15 }
+        { threshold: 0.1 }
       );
 
-      if (refObj.current) {
-        observer.observe(refObj.current);
+      if (ref) {
+        observer.observe(ref);
       }
 
-      observers.push(observer);
-    }
+      return observer;
+    });
 
     return () => {
-      observers.forEach((obs) => obs.disconnect());
+      observers.forEach((observer) => observer.disconnect());
     };
-  }, [count]);
+  }, [items]);
 
-  // Retornar array de objetos con todos los props necesarios
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    const isVisible = visibleSet.has(i);
-    const refObj = refsMap.current.get(i);
-
-    result.push({
-      ref: refObj || { current: null },
-      isVisible,
-      animationClass: isVisible
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-10",
-      style: isVisible ? { transitionDelay: `${i * delayMs}ms` } : {},
-    });
-  }
-
-  return result;
+  return refs.current.map((ref, index) => ({
+    ref,
+    isVisible: visibleIndices.has(index),
+    animationClass: visibleIndices.has(index)
+      ? "opacity-100 translate-y-0"
+      : "opacity-0 translate-y-10",
+    style: visibleIndices.has(index) ? { transitionDelay: `${index * delay}ms` } : {},
+  }));
 }

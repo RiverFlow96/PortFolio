@@ -38,29 +38,31 @@ export function Navbar(): JSX.Element {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0a0f]/90 backdrop-blur-md border-b border-cyan-500/20"
+          ? "glass border border-[var(--border)]"
           : "bg-transparent"
       }`}
+      role="navigation"
+      aria-label="Main navigation"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-        <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
           <RiverFlowLogo size="sm" animated={true} />
-          <span className="text-lg sm:text-xl font-bold text-white font-mono hidden sm:inline">
-            <span className="text-cyan-500">&lt;</span>
+          <span className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] hidden sm:inline">
+            <span className="text-[var(--accent)]">&lt;</span>
             River
-            <span className="text-gradient-cyan">Flow</span>
-            <span className="text-cyan-500">/&gt;</span>
+            <span className="text-gradient">Flow</span>
+            <span className="text-[var(--accent)]">/&gt;</span>
           </span>
         </a>
 
-        <div className="hidden md:flex gap-6 lg:gap-8">
+        <div className="hidden md:flex gap-6">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-gray-400 hover:text-cyan-400 transition-colors font-mono text-sm hover:underline hover:decoration-cyan-400"
+              className="cursor-pointer text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors duration-200 text-sm font-medium"
             >
               {item.label}
             </a>
@@ -68,12 +70,12 @@ export function Navbar(): JSX.Element {
         </div>
 
         <button
-          className="md:hidden relative w-11 h-11 flex items-center justify-center rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-white transition-all active:scale-95"
+          className="cursor-pointer md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] transition-all duration-200 hover:border-[var(--accent)]"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={mobileMenuOpen}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             {mobileMenuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -84,15 +86,14 @@ export function Navbar(): JSX.Element {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[57px] bg-[#0a0a0f]/98 backdrop-blur-lg z-40">
+        <div className="md:hidden fixed inset-0 top-[60px] glass z-40">
           <div className="flex flex-col py-4">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={handleNavClick}
-                className="block px-6 py-5 text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/5 font-mono text-base transition-colors border-b border-cyan-500/10"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="cursor-pointer block px-6 py-4 text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-colors border-b border-[var(--border)]"
               >
                 {item.label}
               </a>
@@ -103,7 +104,7 @@ export function Navbar(): JSX.Element {
             <a
               href="#contact"
               onClick={handleNavClick}
-              className="block w-full py-4 text-center bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-mono font-medium rounded-lg active:scale-[0.98] transition-transform"
+              className="cursor-pointer block w-full py-4 text-center bg-[var(--accent)] text-[var(--bg-primary)] font-medium rounded-lg transition-opacity hover:opacity-90"
             >
               ¡Hablemos!
             </a>

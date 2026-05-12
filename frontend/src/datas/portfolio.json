@@ -120,45 +120,76 @@
   "projects": [
     {
       "title": "FreeMarket - E-commerce Platform",
-      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      "image": "/Ecommerce-Screenshot.png",
+
       "problem": "Necesidad de plataforma de comercio con roles diferenciados (proveedor/comprador) y sistema de autenticación seguro.",
       "solution": "Desarrollé plataforma fullstack con Django REST para backend escalable y React para UI intuitiva. Implementé JWT authentication y sistema de roles granular.",
-      "results": { "performance": "+45%", "loadTime": "1.2s", "uptime": "99.8%" },
+      "results": {
+        "performance": "+45%",
+        "loadTime": "1.2s",
+        "uptime": "99.8%"
+      },
       "description": "Plataforma de comercio electrónico con autenticación, sección de ventas, integración de roles (proveedor y comprador). Built with Django + React.",
       "tech": ["Django", "React", "PostgreSQL", "Tailwind", "JWT"],
       "github": "https://github.com/RiverFlow96/FreeMarket",
       "demo": "https://freemarket-7vy.pages.dev/",
       "difficulty": "Hard",
       "timeToBuild": "~3 meses",
-      "features": ["JWT Authentication", "Role-based Access", "Product Management", "Shopping Cart", "Order Processing"]
+      "features": [
+        "JWT Authentication",
+        "Role-based Access",
+        "Product Management",
+        "Shopping Cart",
+        "Order Processing"
+      ]
     },
     {
       "title": "Task Manager Pro",
-      "image": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      "image": "/TodoList-Screenshot.png",
       "problem": "Aplicación de tareas básica sin AI, generando aumento en el tiempo de gestión de equipos.",
       "solution": "Integré AI para sugerencias automáticas, JWT authentication y API REST completa con validaciones. TypeScript para type-safety.",
-      "results": { "performance": "+60%", "loadTime": "0.8s", "uptime": "99.9%" },
+      "results": {
+        "performance": "+60%",
+        "loadTime": "0.8s",
+        "uptime": "99.9%"
+      },
       "description": "Aplicación de gestión de tareas con AI, autenticación JWT y API REST. Fullstack con TypeScript.",
       "tech": ["Django", "React", "PostgreSQL", "Tailwind", "AI/ML"],
       "github": "https://github.com/RiverFlow96/FullStack-TodoList",
       "demo": "https://fullstack-todolist.pages.dev/",
       "difficulty": "Medium",
       "timeToBuild": "~2 meses",
-      "features": ["AI Suggestions", "JWT Auth", "REST API", "Task CRUD", "Priority System"]
+      "features": [
+        "AI Suggestions",
+        "JWT Auth",
+        "REST API",
+        "Task CRUD",
+        "Priority System"
+      ]
     },
     {
       "title": "Restaurant Landing Page",
-      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
+      "image": "/Restaurant-Screenshot.png",
       "problem": "Restaurantes sin presencia digital para mostrar menú, localización y permitir reservaciones.",
       "solution": "Landing page responsive con geolocalización integrada y sistema de reservación en tiempo real. Backend Django para gestión de reservas.",
-      "results": { "performance": "+50%", "loadTime": "1.5s", "uptime": "99.5%" },
+      "results": {
+        "performance": "+50%",
+        "loadTime": "1.5s",
+        "uptime": "99.5%"
+      },
       "description": "Landing page para restaurantes con mecanismo de localización y reservación de mesas",
       "tech": ["Django", "React", "PostgreSQL", "Tailwind", "Maps API"],
       "github": "https://github.com/RiverFlow96/Restaurant-Page",
       "demo": "https://restaurant-page-11v.pages.dev/",
       "difficulty": "Easy",
       "timeToBuild": "~1 mes",
-      "features": ["Responsive Design", "Geolocation", "Reservation System", "Menu Display", "Contact Form"]
+      "features": [
+        "Responsive Design",
+        "Geolocation",
+        "Reservation System",
+        "Menu Display",
+        "Contact Form"
+      ]
     }
   ]
 }

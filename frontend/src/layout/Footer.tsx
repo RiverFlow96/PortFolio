@@ -91,7 +91,7 @@ export function Footer(): JSX.Element {
 
           {/* Expertise */}
           <div>
-            <h3 className="font-mono text-sm font-bold text-pink-400 mb-4 uppercase tracking-wide">
+            <h3 className="font-mono text-sm font-bold text-red-400 mb-4 uppercase tracking-wide">
               Stack
             </h3>
             <ul className="space-y-2">
@@ -121,7 +121,7 @@ export function Footer(): JSX.Element {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 hover:bg-pink-500/20 hover:border-pink-500/40 transition-all"
+                className="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 hover:bg-red-500/20 hover:border-red-500/40 transition-all"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -152,9 +152,9 @@ export function Footer(): JSX.Element {
           </p>
 
           <div className="text-sm text-gray-500 font-mono">
-            <span className="text-pink-400">&lt;</span>
+            <span className="text-red-400">&lt;</span>
             Made by RiverFlow
-            <span className="text-pink-400">/&gt;</span>
+            <span className="text-red-400">/&gt;</span>
           </div>
         </div>
       </div>

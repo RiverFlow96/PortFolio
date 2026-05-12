@@ -25,9 +25,9 @@ const processSteps: ProcessStep[] = [
     title: 'Desarrollo',
     description: 'Escribo código limpio, modular y testeable siguiendo mejores prácticas.',
     icon: Code2,
-    color: 'from-pink-500 to-pink-600',
-    borderColor: 'border-pink-500/30',
-    bgColor: 'bg-pink-500/10',
+    color: 'from-red-500 to-red-600',
+    borderColor: 'border-red-500/30',
+    bgColor: 'bg-red-500/10',
     number: '02'
   },
   {
@@ -100,7 +100,7 @@ function ProcessCard({ step, index, isVisible }: ProcessCardProps): JSX.Element 
             <span className="text-gray-500">Análisis profundo</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-pink-400" />
+            <span className="w-2 h-2 rounded-full bg-red-400" />
             <span className="text-gray-500">Solución completa</span>
           </div>
           <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ export function HowIWork(): JSX.Element {
 
         {/* Principles */}
         <div className={`
-          mt-20 p-8 bg-gradient-to-r from-cyan-500/5 to-pink-500/5 border border-cyan-500/10 rounded-2xl
+          mt-20 p-8 bg-gradient-to-r from-cyan-500/5 to-red-500/5 border border-cyan-500/10 rounded-2xl
           transition-all duration-700 delay-700
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
         `}>
@@ -261,7 +261,7 @@ export function HowIWork(): JSX.Element {
               <p className="text-gray-400 text-sm">Optimizo desde el inicio, mido constantemente y busco mejorar continuamente.</p>
             </div>
             <div>
-              <p className="font-mono text-pink-400 text-sm mb-2">CLEAN CODE</p>
+              <p className="font-mono text-red-400 text-sm mb-2">CLEAN CODE</p>
               <p className="text-gray-400 text-sm">Código legible, modular y mantenible. Documentación clara y tests completos.</p>
             </div>
             <div>

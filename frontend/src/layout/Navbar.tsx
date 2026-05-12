@@ -50,7 +50,7 @@ export function Navbar(): JSX.Element {
           <span className="text-lg sm:text-xl font-bold text-white font-mono hidden sm:inline">
             <span className="text-cyan-500">&lt;</span>
             River
-            <span className="text-gradient-pink">Flow</span>
+            <span className="text-gradient-cyan">Flow</span>
             <span className="text-cyan-500">/&gt;</span>
           </span>
         </a>
@@ -103,7 +103,7 @@ export function Navbar(): JSX.Element {
             <a
               href="#contact"
               onClick={handleNavClick}
-              className="block w-full py-4 text-center bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-mono font-medium rounded-lg active:scale-[0.98] transition-transform"
+              className="block w-full py-4 text-center bg-gradient-to-r from-cyan-500 to-red-500 text-white font-mono font-medium rounded-lg active:scale-[0.98] transition-transform"
             >
               ¡Hablemos!
             </a>

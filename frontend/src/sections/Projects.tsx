@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-import { ExternalLink, Github, ArrowUpRight, TrendingUp, Clock, Zap, X, Search, SortAsc } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight, Clock, Search, SortAsc } from "lucide-react";
 import { useProjects } from "../datas/usePortfolio";
 import { LazyImage } from "../components/LazyImage";
 
@@ -19,9 +19,9 @@ interface Project {
 }
 
 const difficultyColors = {
-  Easy: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  Medium: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  Hard: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
+  Easy: "bg-emerald-500/20 text-emerald-400 border-emerald-500/20",
+  Medium: "bg-amber-500/20 text-amber-400 border-amber-500/20",
+  Hard: "bg-red-500/20 text-red-400 border-red-500/20"
 };
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
@@ -32,13 +32,15 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0f0f14] border border-cyan-500/30 rounded-2xl">
+      <div className="absolute inset-0 bg-black/80" onClick={onClose} />
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors z-10"
         >
-          <X className="w-5 h-5" />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
         
         <div className="relative h-48 md:h-64 overflow-hidden rounded-t-2xl">
@@ -47,56 +49,46 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             alt={project.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f14] to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] to-transparent" />
+        </div>
+
+        <div className="p-6 space-y-6">
+          <div className="flex items-center gap-3">
             <span className={`px-3 py-1 rounded-full text-xs font-mono border ${difficultyColors[project.difficulty]}`}>
               {project.difficulty}
             </span>
-            <span className="flex items-center gap-1 text-xs text-gray-400 font-mono">
+            <span className="flex items-center gap-1 text-xs text-[var(--text-muted)] font-mono">
               <Clock className="w-4 h-4" />
               {project.timeToBuild}
             </span>
           </div>
-        </div>
 
-        <div className="p-6 space-y-6">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-            <p className="text-gray-400">{project.description}</p>
+            <h3 className="text-2xl font-semibold text-[var(--text-primary)] mb-2">{project.title}</h3>
+            <p className="text-[var(--text-secondary)]">{project.description}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-[#1a1a24] rounded-lg p-4 text-center">
-              <div className="flex items-center justify-center gap-2 text-emerald-400 font-mono text-sm font-bold mb-1">
-                <TrendingUp className="w-4 h-4" />
-                {project.results.performance}
-              </div>
-              <p className="text-gray-500 text-xs">Performance</p>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-[var(--bg-tertiary)] text-center">
+              <div className="text-lg font-semibold text-emerald-400">{project.results.performance}</div>
+              <div className="text-xs text-[var(--text-muted)]">Performance</div>
             </div>
-            <div className="bg-[#1a1a24] rounded-lg p-4 text-center">
-              <div className="text-cyan-400 font-mono text-sm font-bold mb-1">
-                {project.results.loadTime}
-              </div>
-              <p className="text-gray-500 text-xs">Load Time</p>
+            <div className="p-4 rounded-lg bg-[var(--bg-tertiary)] text-center">
+              <div className="text-lg font-semibold text-[var(--accent)]">{project.results.loadTime}</div>
+              <div className="text-xs text-[var(--text-muted)]">Load Time</div>
             </div>
-            <div className="bg-[#1a1a24] rounded-lg p-4 text-center">
-              <div className="text-cyan-400 font-mono text-sm font-bold mb-1">
-                {project.results.uptime}
-              </div>
-              <p className="text-gray-500 text-xs">Uptime</p>
+            <div className="p-4 rounded-lg bg-[var(--bg-tertiary)] text-center">
+              <div className="text-lg font-semibold text-amber-400">{project.results.uptime}</div>
+              <div className="text-xs text-[var(--text-muted)]">Uptime</div>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-sm font-mono text-cyan-400 mb-3">📋 Features</h4>
-            <ul className="grid grid-cols-2 gap-2">
-              {project.features.map((feature, i) => (
-                <li key={i} className="flex items-center gap-2 text-gray-300 text-sm">
-                  <Zap className="w-4 h-4 text-cyan-500" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          <div className="flex flex-wrap gap-2">
+            {project.tech.map((t) => (
+              <span key={t} className="px-3 py-1 bg-[var(--accent-subtle)] text-[var(--accent)] rounded-full text-xs font-mono">
+                {t}
+              </span>
+            ))}
           </div>
 
           <div className="flex gap-4">
@@ -104,7 +96,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
             >
               <Github className="w-5 h-5" />
               Código
@@ -113,7 +105,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--accent)] text-[var(--bg-primary)] rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
               <ExternalLink className="w-5 h-5" />
               Demo
@@ -129,81 +121,55 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
   return (
     <div
       className={`
-        group relative bg-[#0f0f14]/80 backdrop-blur-sm border border-cyan-500/20 rounded-2xl 
-        overflow-hidden transition-all duration-500 cursor-pointer
-        hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+        group relative bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl 
+        overflow-hidden cursor-pointer transition-all duration-300 hover-lift
+        ${isVisible ? 'opacity-100' : 'opacity-0'}
       `}
-      style={{ transitionDelay: `${index * 0.1}s` }}
+      style={{ animationDelay: `${index * 0.1}s` }}
       onClick={onClick}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br from-cyan-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      
       <div className="relative h-40 overflow-hidden">
         <LazyImage
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f14] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] to-transparent" />
         <div className="absolute top-3 left-3">
           <span className={`px-2 py-1 rounded-md text-xs font-mono border ${difficultyColors[project.difficulty]}`}>
             {project.difficulty}
           </span>
         </div>
-        <div className="absolute top-3 right-3">
-          <span className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-mono bg-black/50 text-gray-300">
-            <Clock className="w-3 h-3" />
-            {project.timeToBuild}
-          </span>
-        </div>
       </div>
       
-      <div className="relative p-5 space-y-4">
+      <div className="p-5 space-y-4">
         <div className="flex items-start justify-between">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center">
-            <ArrowUpRight className="w-4 h-4 text-cyan-400" />
-          </div>
-          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-400" onClick={(e) => e.stopPropagation()}>
-              <Github className="w-4 h-4" />
-            </a>
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-400" onClick={(e) => e.stopPropagation()}>
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </div>
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
+            {project.title}
+          </h3>
+          <ArrowUpRight className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" />
         </div>
         
-        <h3 className="text-lg font-semibold text-white group-hover:text-cyan-300 transition-colors">
-          {project.title}
-        </h3>
+        <p className="text-sm text-[var(--text-secondary)] line-clamp-2">{project.problem}</p>
         
-        <p className="text-gray-400 text-sm line-clamp-2">{project.problem}</p>
-        
-        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-cyan-500/10">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-emerald-400 font-mono text-sm font-bold">
-              <TrendingUp className="w-3 h-3" />
-              {project.results.performance}
-            </div>
-          </div>
-          <div className="text-center text-cyan-400 font-mono text-sm font-bold">
-            {project.results.loadTime}
-          </div>
-          <div className="text-center text-cyan-400 font-mono text-sm font-bold">
-            {project.results.uptime}
+        <div className="flex items-center justify-between pt-3 border-t border-[var(--border)]">
+          <div className="flex items-center gap-4 text-sm">
+            <span className="text-emerald-400">{project.results.performance}</span>
+            <span className="text-[var(--accent)]">{project.results.loadTime}</span>
+            <span className="text-amber-400">{project.results.uptime}</span>
           </div>
         </div>
         
         <div className="flex flex-wrap gap-2">
-          {project.tech.map((t) => (
-            <span key={t} className="px-2 py-1 bg-cyan-500/10 text-cyan-300 rounded-full text-xs font-mono border border-cyan-500/20">
+          {project.tech.slice(0, 3).map((t) => (
+            <span key={t} className="px-2 py-1 bg-[var(--bg-tertiary)] text-[var(--text-muted)] rounded text-xs font-mono">
               {t}
             </span>
           ))}
+          {project.tech.length > 3 && (
+            <span className="px-2 py-1 text-[var(--text-muted)] text-xs">+{project.tech.length - 3}</span>
+          )}
         </div>
-        
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-600 to-cyan-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
       </div>
     </div>
   );
@@ -265,50 +231,44 @@ export function Projects(): JSX.Element {
         const orderDesc = { Easy: 3, Medium: 2, Hard: 1 };
         filtered.sort((a, b) => orderDesc[a.difficulty] - orderDesc[b.difficulty]);
         break;
-      default:
-        break;
     }
 
     return filtered;
   }, [projects, searchTerm, selectedTech, sortBy]);
 
   return (
-    <section id="projects" ref={sectionRef} className="min-h-screen py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(6,182,212,0.08)_0%,_transparent_50%)]" />
-      
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <div className={`font-mono text-cyan-500 mb-8 text-sm transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-          <span className="text-emerald-400">#</span> projects
+    <section id="projects" ref={sectionRef} className="section-padding relative">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center gap-2 mb-8 text-sm">
+          <span className="text-[var(--accent)]">#</span>
+          <span className="text-[var(--text-muted)] font-mono">projects</span>
         </div>
 
-        <h2 className={`text-3xl md:text-4xl font-bold text-white mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          Proyectos <span className="text-gradient-cyan">destacados</span>
+        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-8">
+          Proyectos <span className="text-gradient">destacados</span>
         </h2>
 
         {/* Filters */}
         <div className="mb-8 space-y-4">
-          {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
             <input
               type="text"
               placeholder="Buscar proyectos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-[#0f0f14] border border-cyan-500/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 transition-colors"
+              className="w-full pl-10 pr-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
             />
           </div>
 
-          {/* Tech filters & Sort */}
           <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
-            {/* Tech chips */}
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTech(null)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-sm font-mono transition-all ${
                   selectedTech === null 
-                    ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
-                    : 'bg-[#0f0f14] text-gray-400 border border-cyan-500/20 hover:border-cyan-500/40'
+                    ? 'bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]' 
+                    : 'bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--border-hover)]'
                 }`}
               >
                 Todos
@@ -317,10 +277,10 @@ export function Projects(): JSX.Element {
                 <button
                   key={tech}
                   onClick={() => setSelectedTech(tech === selectedTech ? null : tech)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-mono transition-all ${
                     selectedTech === tech 
-                      ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
-                      : 'bg-[#0f0f14] text-gray-400 border border-cyan-500/20 hover:border-cyan-500/40'
+                      ? 'bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]' 
+                      : 'bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--border-hover)]'
                   }`}
                 >
                   {tech}
@@ -328,13 +288,12 @@ export function Projects(): JSX.Element {
               ))}
             </div>
 
-            {/* Sort */}
             <div className="flex items-center gap-2">
-              <SortAsc className="w-4 h-4 text-gray-500" />
+              <SortAsc className="w-4 h-4 text-[var(--text-muted)]" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="bg-[#0f0f14] border border-cyan-500/20 rounded-lg text-gray-400 text-xs font-mono px-3 py-1.5 focus:outline-none focus:border-cyan-500/50"
+                className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg text-[var(--text-muted)] text-sm font-mono px-3 py-1.5 focus:outline-none focus:border-[var(--accent)]"
               >
                 <option value="relevance">Relevancia</option>
                 <option value="name">Nombre</option>
@@ -344,11 +303,8 @@ export function Projects(): JSX.Element {
             </div>
           </div>
 
-          {/* Results count */}
-          <p className="text-gray-500 text-sm font-mono">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'proyecto' : 'proyectos'} encontrado{filteredProjects.length !== 1 ? 's' : ''}
-            {selectedTech && <span className="text-cyan-400"> en {selectedTech}</span>}
-            {searchTerm && <span className="text-cyan-400"> para "{searchTerm}"</span>}
+          <p className="text-sm text-[var(--text-muted)]">
+            {filteredProjects.length} proyecto{filteredProjects.length !== 1 ? 's' : ''}
           </p>
         </div>
 
@@ -367,25 +323,25 @@ export function Projects(): JSX.Element {
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 font-mono">No se encontraron proyectos</p>
+            <p className="text-[var(--text-muted)]">No se encontraron proyectos</p>
             <button 
               onClick={() => { setSearchTerm(''); setSelectedTech(null); }}
-              className="mt-4 text-cyan-400 hover:underline"
+              className="mt-4 text-[var(--accent)] hover:underline"
             >
               Limpiar filtros
             </button>
           </div>
         )}
 
-        <div className={`mt-12 text-center transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="mt-12 text-center">
           <a
             href="https://github.com/RiverFlow96"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-mono transition-colors group"
+            className="inline-flex items-center gap-2 text-[var(--accent)] hover:underline"
           >
             Ver más en GitHub
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
       </div>

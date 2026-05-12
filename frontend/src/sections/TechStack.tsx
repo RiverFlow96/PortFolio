@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Zap } from 'lucide-react';
 import { 
   SiReact, SiTypescript, SiJavascript, 
   SiDjango, SiPython, SiPostgresql, 
@@ -21,16 +20,16 @@ const technologies: Technology[] = [
   { name: 'Django', icon: SiDjango, color: '#092e20', category: 'backend', size: 'large' },
   { name: 'Python', icon: SiPython, color: '#3776ab', category: 'backend', size: 'medium' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: '#336791', category: 'backend', size: 'medium' },
-  { name: 'Tailwind', icon: SiTailwindcss, color: '#06b6d4', category: 'frontend', size: 'medium' },
+  { name: 'Tailwind', icon: SiTailwindcss, color: '#14b8a6', category: 'frontend', size: 'medium' },
   { name: 'JavaScript', icon: SiJavascript, color: '#f7df1e', category: 'frontend', size: 'medium' },
   { name: 'Git', icon: SiGit, color: '#f1502f', category: 'tools', size: 'medium' },
   { name: 'Docker', icon: SiDocker, color: '#2496ed', category: 'tools', size: 'medium' },
 ];
 
 const sizeClasses: Record<Technology['size'], string> = {
-  small: 'w-10 h-10 text-xs',
-  medium: 'w-12 h-12 text-sm',
-  large: 'w-14 h-14 text-base'
+  small: 'w-10 h-10',
+  medium: 'w-12 h-12',
+  large: 'w-14 h-14'
 };
 
 const iconSizes: Record<Technology['size'], number> = {
@@ -45,15 +44,12 @@ function TechWheel(): JSX.Element {
 
   useEffect(() => {
     if (isHovered) {
-      const interval = setInterval(() => {
-        setRotation(prev => prev + 0.5);
-      }, 16);
+      const interval = setInterval(() => setRotation(prev => prev + 0.3), 16);
       return () => clearInterval(interval);
     }
   }, [isHovered]);
 
-  const outerRadius = 160;
-  const innerRadius = 100;
+  const outerRadius = 150;
   const centerX = 200;
   const centerY = 200;
 
@@ -65,8 +61,7 @@ function TechWheel(): JSX.Element {
     };
   };
 
-  const outerTechs = technologies.filter(t => t.size !== 'small');
-  const innerTechs = technologies.filter(t => t.size === 'small');
+  const techs = technologies.filter(t => t.size !== 'small');
 
   return (
     <div 
@@ -74,262 +69,110 @@ function TechWheel(): JSX.Element {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background circles */}
+      {/* Minimal rings */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[300px] h-[300px] rounded-full border border-cyan-500/10 border-dashed animate-[spin_60s_linear_infinite]" />
-        <div className="absolute w-[220px] h-[220px] rounded-full border border-cyan-500/10 border-dashed animate-[spin_40s_linear_infinite_reverse]" />
-        <div className="absolute w-[140px] h-[140px] rounded-full border border-emerald-500/10 border-dashed animate-[spin_30s_linear_infinite]" />
+        <div className="w-[280px] h-[280px] rounded-full border border-[var(--border)]" />
+        <div className="absolute w-[180px] h-[180px] rounded-full border border-[var(--border)] opacity-50" />
       </div>
 
-      {/* Rotating container */}
+      {/* Rotating icons */}
       <div 
         className="absolute inset-0 transition-transform ease-linear"
-        style={{ 
-          transform: `rotate(${rotation}deg)`,
-        }}
+        style={{ transform: `rotate(${rotation}deg)` }}
       >
-        {/* Outer ring - Large & Medium icons */}
-        {outerTechs.map((tech, i) => {
-          const pos = getPosition(i, outerTechs.length, outerRadius);
+        {techs.map((tech, i) => {
+          const pos = getPosition(i, techs.length, outerRadius);
           const Icon = tech.icon;
           return (
             <div
-              key={`outer-${tech.name}`}
-              className={`absolute ${sizeClasses[tech.size]} rounded-2xl bg-[#0f0f14]/90 border border-cyan-500/30 flex items-center justify-center transition-all duration-300 hover:scale-125 hover:border-cyan-500/70 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:bg-cyan-500/10`}
-              style={{
-                left: pos.x,
-                top: pos.y,
-              }}
+              key={tech.name}
+              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]`}
+              style={{ left: pos.x, top: pos.y }}
             >
-              <Icon size={iconSizes[tech.size!]} style={{ color: tech.color }} />
-            </div>
-          );
-        })}
-
-        {/* Inner ring - Small icons */}
-        {innerTechs.map((tech, i) => {
-          const pos = getPosition(i, innerTechs.length, innerRadius);
-          const Icon = tech.icon;
-          return (
-            <div
-              key={`inner-${tech.name}`}
-              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[#0f0f14]/90 border border-cyan-500/30 flex items-center justify-center transition-all duration-300 hover:scale-125 hover:border-cyan-500/70 hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:bg-cyan-500/10`}
-              style={{
-                left: pos.x,
-                top: pos.y,
-              }}
-            >
-              <Icon size={iconSizes[tech.size!]} style={{ color: tech.color }} />
+              <Icon size={iconSizes[tech.size]} style={{ color: tech.color }} />
             </div>
           );
         })}
       </div>
 
-      {/* Center - Animated core */}
+      {/* Center - minimal */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative w-24 h-24">
-          {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full blur-xl opacity-50 animate-pulse" />
-          
-          {/* Core circle */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-[#1a1a24] to-[#0f0f14] border-2 border-cyan-500/50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-cyan-500/20 to-emerald-500/20 animate-[spin_3s_linear_infinite] rounded-full" />
-            <SiReact size={36} className="text-cyan-400 relative z-10" />
-          </div>
-          
-          {/* Orbiting dots */}
-          <div className="absolute inset-0 animate-[spin_4s_linear_infinite]">
-            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#06b6d4]" />
-          </div>
-          <div className="absolute inset-0 animate-[spin_6s_linear_infinite_reverse]">
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#ef4444]" />
-          </div>
+        <div className="w-20 h-20 rounded-full bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center">
+          <SiReact size={32} className="text-[var(--accent)]" />
         </div>
       </div>
 
-      {/* Labels around the wheel */}
-      <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-center">
-        <span className="text-cyan-400 font-mono text-sm">Tech Stack</span>
-      </div>
-
-      {/* Instructions */}
-      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2">
-        <Zap className="w-4 h-4 text-yellow-400" />
-        <span className="text-gray-500 font-mono text-xs">Hover para rotar</span>
+      {/* Label */}
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-sm text-[var(--text-muted)]">
+        Tech Stack
       </div>
     </div>
   );
 }
-
-interface TechItemProps {
-  tech: Technology;
-  index: number;
-  isExpanded: boolean;
-}
-
-function TechItem({ tech, index, isExpanded }: TechItemProps): JSX.Element {
-  const Icon = tech.icon;
-  
-  return (
-    <div
-      className={`
-        transition-all duration-500 ease-out transform
-        ${isExpanded 
-          ? 'opacity-100 translate-y-0 scale-100' 
-          : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-        }
-      `}
-      style={{
-        transitionDelay: isExpanded ? `${index * 60}ms` : `${(10 - index) * 30}ms`,
-      }}
-    >
-      <div className="group flex flex-col items-center transition-all duration-300">
-        <div className={`
-          w-16 h-16 rounded-2xl
-          bg-[#0f0f14]/80 border border-cyan-500/20
-          flex items-center justify-center
-          group-hover:bg-cyan-600/20 group-hover:border-cyan-500/50
-          group-hover:shadow-lg group-hover:shadow-cyan-500/20
-          transition-all duration-300 cursor-default
-        `}>
-          <Icon size={28} style={{ color: tech.color }} />
-        </div>
-        <span className="mt-2 text-xs font-mono text-gray-400 group-hover:text-cyan-300 transition-colors duration-300">
-          {tech.name}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-const categories = [
-  {
-    id: 'frontend',
-    label: 'Frontend',
-    color: 'from-cyan-500 to-blue-500',
-    borderColor: 'border-cyan-500/50',
-    bgHover: 'hover:bg-cyan-600/20',
-    tech: technologies.filter(t => t.category === 'frontend')
-  },
-  {
-    id: 'backend',
-    label: 'Backend',
-    color: 'from-green-500 to-emerald-500',
-    borderColor: 'border-green-500/50',
-    bgHover: 'hover:bg-green-600/20',
-    tech: technologies.filter(t => t.category === 'backend')
-  },
-  {
-    id: 'tools',
-    label: 'Tools',
-    color: 'from-orange-500 to-cyan-600',
-    borderColor: 'border-orange-500/50',
-    bgHover: 'hover:bg-orange-600/20',
-    tech: technologies.filter(t => t.category === 'tools')
-  },
-  ];
 
 export function TechStack(): JSX.Element {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleToggle = (categoryId: string): void => {
-    setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
-  };
+  const categories = [
+    { id: 'frontend', label: 'Frontend', tech: technologies.filter(t => t.category === 'frontend') },
+    { id: 'backend', label: 'Backend', tech: technologies.filter(t => t.category === 'backend') },
+    { id: 'tools', label: 'Tools', tech: technologies.filter(t => t.category === 'tools') },
+  ];
 
   return (
-    <section id="stack" ref={sectionRef} className="min-h-screen py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(139,92,246,0.08)_0%,_transparent_70%)]" />
-      
-      {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
-      
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <div className={`
-          text-center mb-8 transition-all duration-700
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-        `}>
-          <div className="font-mono text-cyan-500 mb-4 text-sm">
-            <span className="text-cyan-400">#</span> tech-stack
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tecnologías que <span className="text-cyan-500">uso</span>
-          </h2>
+    <section id="stack" ref={sectionRef} className="section-padding relative">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center gap-2 mb-8 text-sm">
+          <span className="text-[var(--accent)]">#</span>
+          <span className="text-[var(--text-muted)] font-mono">tech-stack</span>
         </div>
 
-        {/* Tech Wheel */}
-        <div className={`
-          mb-8 transition-all duration-700 delay-300
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-        `}>
+        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-12">
+          Tecnologías que uso
+        </h2>
+
+        {/* Wheel */}
+        <div className={`mb-12 transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <TechWheel />
         </div>
 
-        <p className="text-gray-400 text-sm text-center mb-8">
-          Haz clic en cada categoría para explorar
-        </p>
-
+        {/* Categories - simple grid */}
         <div className="space-y-4">
           {categories.map((category) => (
-            <div key={category.id} className={`
-              transition-all duration-700
-              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            `}>
-              <button
-                onClick={() => handleToggle(category.id)}
-                className={`
-                  relative w-full px-6 py-4 rounded-2xl
-                  border-2 transition-all duration-300
-                  font-semibold text-white
-                  group overflow-hidden
-                  ${category.borderColor} ${category.bgHover}
-                  ${expandedCategory === category.id 
-                    ? `bg-gradient-to-r ${category.color} border-transparent shadow-lg` 
-                    : 'bg-[#0f0f14]/60 backdrop-blur-sm'
-                  }
-                `}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-                <div className="relative flex items-center justify-between">
-                  <span>{category.label}</span>
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${expandedCategory === category.id ? 'rotate-180' : 'rotate-0'}`} />
-                </div>
-              </button>
-
-              <div className={`mt-4 transition-all duration-500 overflow-hidden ${expandedCategory === category.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="grid grid-cols-3 gap-4 px-2 md:grid-cols-5">
-                  {category.tech.map((tech, i) => (
-                    <TechItem key={tech.name} tech={tech} index={i} isExpanded={expandedCategory === category.id} />
-                  ))}
-                </div>
+            <div key={category.id} className="border border-[var(--border)] rounded-xl p-4 hover:border-[var(--border-hover)] transition-colors">
+              <div className="text-sm text-[var(--accent)] font-medium mb-4">{category.label}</div>
+              <div className="flex flex-wrap gap-3">
+                {category.tech.map((tech) => {
+                  const Icon = tech.icon;
+                  return (
+                    <div 
+                      key={tech.name}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)]"
+                    >
+                      <Icon size={16} style={{ color: tech.color }} />
+                      <span className="text-sm text-[var(--text-secondary)]">{tech.name}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}
         </div>
 
-        <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="text-gray-500 font-mono text-xs">
-            <span className="text-cyan-500">&gt;</span> Total: {technologies.length} tecnologías en el stack
-          </p>
+        <div className="mt-12 text-center text-sm text-[var(--text-muted)]">
+          <span className="text-[var(--accent)]">→</span> {technologies.length} tecnologías en el stack
         </div>
       </div>
     </section>

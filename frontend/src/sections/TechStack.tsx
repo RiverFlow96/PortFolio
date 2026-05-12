@@ -20,7 +20,7 @@ const technologies: Technology[] = [
   { name: 'Django', icon: SiDjango, color: '#092e20', category: 'backend', size: 'large' },
   { name: 'Python', icon: SiPython, color: '#3776ab', category: 'backend', size: 'medium' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: '#336791', category: 'backend', size: 'medium' },
-  { name: 'Tailwind', icon: SiTailwindcss, color: '#14b8a6', category: 'frontend', size: 'medium' },
+  { name: 'Tailwind', icon: SiTailwindcss, color: '#22c55e', category: 'frontend', size: 'medium' },
   { name: 'JavaScript', icon: SiJavascript, color: '#f7df1e', category: 'frontend', size: 'medium' },
   { name: 'Git', icon: SiGit, color: '#f1502f', category: 'tools', size: 'medium' },
   { name: 'Docker', icon: SiDocker, color: '#2496ed', category: 'tools', size: 'medium' },
@@ -65,17 +65,17 @@ function TechWheel(): JSX.Element {
 
   return (
     <div 
-      className="relative w-[420px] h-[420px] mx-auto"
+      className="relative w-[420px] h-[420px] cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      role="img"
+      aria-label="Technologies wheel"
     >
-      {/* Minimal rings */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-[280px] h-[280px] rounded-full border border-[var(--border)]" />
         <div className="absolute w-[180px] h-[180px] rounded-full border border-[var(--border)] opacity-50" />
       </div>
 
-      {/* Rotating icons */}
       <div 
         className="absolute inset-0 transition-transform ease-linear"
         style={{ transform: `rotate(${rotation}deg)` }}
@@ -86,7 +86,7 @@ function TechWheel(): JSX.Element {
           return (
             <div
               key={tech.name}
-              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]`}
+              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center transition-all duration-200 hover:scale-110 hover:border-[var(--accent)]`}
               style={{ left: pos.x, top: pos.y }}
             >
               <Icon size={iconSizes[tech.size]} style={{ color: tech.color }} />
@@ -95,14 +95,12 @@ function TechWheel(): JSX.Element {
         })}
       </div>
 
-      {/* Center - minimal */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="w-20 h-20 rounded-full bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center">
           <SiReact size={32} className="text-[var(--accent)]" />
         </div>
       </div>
 
-      {/* Label */}
       <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-sm text-[var(--text-muted)]">
         Tech Stack
       </div>
@@ -132,34 +130,32 @@ export function TechStack(): JSX.Element {
   ];
 
   return (
-    <section id="stack" ref={sectionRef} className="section-padding relative">
+    <section id="stack" ref={sectionRef} className="section-padding relative" aria-labelledby="stack-heading">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-2 mb-8 text-sm">
           <span className="text-[var(--accent)]">#</span>
           <span className="text-[var(--text-muted)] font-mono">tech-stack</span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-12">
-          Tecnologías que uso
+        <h2 id="stack-heading" className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-12">
+          Tecnologías
         </h2>
 
-        {/* Wheel */}
         <div className={`mb-12 transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <TechWheel />
         </div>
 
-        {/* Categories - simple grid */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {categories.map((category) => (
-            <div key={category.id} className="border border-[var(--border)] rounded-xl p-4 hover:border-[var(--border-hover)] transition-colors">
-              <div className="text-sm text-[var(--accent)] font-medium mb-4">{category.label}</div>
-              <div className="flex flex-wrap gap-3">
+            <div key={category.id} className="cursor-pointer border border-[var(--border)] rounded-xl p-4 hover:border-[var(--border-hover)] transition-all duration-200">
+              <div className="text-sm text-[var(--accent)] font-medium mb-3">{category.label}</div>
+              <div className="flex flex-wrap gap-2">
                 {category.tech.map((tech) => {
                   const Icon = tech.icon;
                   return (
                     <div 
                       key={tech.name}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)]"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)]"
                     >
                       <Icon size={16} style={{ color: tech.color }} />
                       <span className="text-sm text-[var(--text-secondary)]">{tech.name}</span>
@@ -172,7 +168,7 @@ export function TechStack(): JSX.Element {
         </div>
 
         <div className="mt-12 text-center text-sm text-[var(--text-muted)]">
-          <span className="text-[var(--accent)]">→</span> {technologies.length} tecnologías en el stack
+          <span className="text-[var(--accent)]">→</span> {technologies.length} tecnologías
         </div>
       </div>
     </section>

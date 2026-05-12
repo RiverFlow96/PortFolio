@@ -23,15 +23,14 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/80" onClick={onClose} role="button" aria-label="Cerrar modal" />
       <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-white z-10"
+          className="cursor-pointer absolute top-4 right-4 p-2 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-white z-10"
+          aria-label="Cerrar"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         
         <div className="relative h-48 overflow-hidden rounded-t-2xl">
@@ -55,10 +54,10 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
 
           <div className="flex gap-3 pt-2">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm hover:border-[var(--accent)] transition-colors">
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="cursor-pointer flex-1 flex items-center justify-center gap-2 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm hover:border-[var(--accent)] transition-all duration-200">
               <Github className="w-4 h-4" />Código
             </a>
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[var(--accent)] text-[var(--bg-primary)] rounded-lg text-sm font-medium">
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="cursor-pointer flex-1 flex items-center justify-center gap-2 py-2.5 bg-[var(--accent)] text-[var(--bg-primary)] rounded-lg text-sm font-medium hover:opacity-90">
               <ExternalLink className="w-4 h-4" />Demo
             </a>
           </div>
@@ -71,7 +70,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 function ProjectCard({ project, onClick }: { project: Project; onClick: () => void }) {
   return (
     <button
-      className="group w-full text-left bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl overflow-hidden hover:border-[var(--border-hover)] transition-all duration-300"
+      className="cursor-pointer group w-full text-left bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl overflow-hidden hover:border-[var(--border-hover)] transition-all duration-200"
       onClick={onClick}
     >
       <div className="relative h-36 overflow-hidden">
@@ -112,14 +111,14 @@ export function Projects(): JSX.Element {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="section-padding relative">
+    <section id="projects" ref={sectionRef} className="section-padding relative" aria-labelledby="projects-heading">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-8 text-sm">
           <span className="text-[var(--accent)]">#</span>
           <span className="text-[var(--text-muted)] font-mono">projects</span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-10">
+        <h2 id="projects-heading" className="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-10">
           Proyectos
         </h2>
 
@@ -132,7 +131,7 @@ export function Projects(): JSX.Element {
         </div>
 
         <div className="mt-12 text-center">
-          <a href="https://github.com/RiverFlow96" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors text-sm">
+          <a href="https://github.com/RiverFlow96" target="_blank" rel="noopener noreferrer" className="cursor-pointer inline-flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors text-sm">
             Ver más en GitHub <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

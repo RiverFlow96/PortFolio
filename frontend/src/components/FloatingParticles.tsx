@@ -7,19 +7,19 @@ export function FloatingParticles(): JSX.Element {
       @keyframes float {
         0%, 100% {
           transform: translateY(0px) translateX(0px);
-          opacity: 0.5;
+          opacity: 0.4;
         }
         25% {
-          transform: translateY(-20px) translateX(10px);
-          opacity: 0.8;
+          transform: translateY(-15px) translateX(8px);
+          opacity: 0.7;
         }
         50% {
-          transform: translateY(-40px) translateX(-10px);
-          opacity: 1;
+          transform: translateY(-30px) translateX(-8px);
+          opacity: 0.9;
         }
         75% {
-          transform: translateY(-20px) translateX(10px);
-          opacity: 0.8;
+          transform: translateY(-15px) translateX(8px);
+          opacity: 0.7;
         }
       }
 
@@ -29,36 +29,23 @@ export function FloatingParticles(): JSX.Element {
           opacity: 0;
         }
         10% {
-          opacity: 1;
+          opacity: 0.8;
         }
         90% {
-          opacity: 1;
+          opacity: 0.8;
         }
         100% {
-          transform: translateX(100px);
+          transform: translateX(100vw);
           opacity: 0;
         }
       }
 
-      @keyframes pulse-glow {
-        0%, 100% {
-          filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.3));
-        }
-        50% {
-          filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.8));
-        }
-      }
-
       .particle-float {
-        animation: float 4s ease-in-out infinite;
+        animation: float 5s ease-in-out infinite;
       }
 
       .particle-flow {
-        animation: flowLeft 3s ease-in-out infinite;
-      }
-
-      .particle-glow {
-        animation: pulse-glow 2s ease-in-out infinite;
+        animation: flowLeft 8s ease-in-out infinite;
       }
     `;
     document.head.appendChild(style);
@@ -67,38 +54,37 @@ export function FloatingParticles(): JSX.Element {
 
   return (
     <>
-      {/* Floating particles for background decoration */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(5)].map((_, i) => (
         <div
           key={`float-${i}`}
-          className="particle-float particle-glow"
+          className="particle-float"
           style={{
             position: 'absolute',
-            width: '2px',
-            height: '2px',
+            width: '3px',
+            height: '3px',
             borderRadius: '50%',
-            backgroundColor: i % 2 === 0 ? '#06B6D4' : '#EC4899',
-            left: `${20 + i * 15}%`,
-            top: `${30 + (i % 3) * 20}%`,
-            animationDelay: `${i * 0.3}s`,
+            backgroundColor: '#e63946',
+            left: `${15 + i * 18}%`,
+            top: `${25 + (i % 4) * 20}%`,
+            animationDelay: `${i * 0.4}s`,
+            boxShadow: '0 0 10px rgba(230, 57, 70, 0.5)',
           }}
         />
       ))}
 
-      {/* Flow particles */}
-      {[...Array(4)].map((_, i) => (
+      {[...Array(3)].map((_, i) => (
         <div
           key={`flow-${i}`}
           className="particle-flow"
           style={{
             position: 'absolute',
-            width: '1.5px',
-            height: '1.5px',
+            width: '2px',
+            height: '2px',
             borderRadius: '50%',
-            backgroundColor: '#10B981',
-            left: '0%',
-            top: `${25 + i * 20}%`,
-            animationDelay: `${i * 0.5}s`,
+            backgroundColor: '#ff6b6b',
+            left: '-100px',
+            top: `${20 + i * 30}%`,
+            animationDelay: `${i * 1.5}s`,
           }}
         />
       ))}

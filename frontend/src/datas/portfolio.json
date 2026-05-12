@@ -18,14 +18,16 @@
   },
   "profile": {
     "name": "RiverFlow",
-    "title": "Developer-Designer Fullstack",
+    "displayName": "Yordany Almeida Riveron",
+    "title": "Fullstack Developer",
     "tagline": "Building Fast, Scalable Web Experiences",
+    "avatar": "https://github.com/RiverFlow96.png",
     "bio": [
       "Soy desarrollador fullstack apasionado por crear soluciones web elegantes, rápidas y escalables. Me especializo en transformar ideas complejas en aplicaciones que combinan rendimiento excepcional con experiencia de usuario intuitiva.",
       "Mi enfoque está en arquitectura moderna, clean code y best practices. Trabajo con React, Django y TypeScript para construir productos que generan impacto real. Siempre busco aprender, optimizar y mejorar.",
       "Cuando no estoy codificando, me encuentro explorando nuevas tecnologías, contribuyendo a proyectos open source o ayudando a otros desarrolladores a resolver problemas complejos."
     ],
-    "location": "🌍 Worldwide",
+    "location": "Worldwide",
     "status": "Open to exciting projects"
   },
   "social": [

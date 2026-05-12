@@ -88,7 +88,6 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
       xmlns="http://www.w3.org/2000/svg"
       className="relative"
     >
-      {/* Background subtle glow */}
       <defs>
         <filter id="glow">
           <feGaussianBlur stdDeviation="1" result="coloredBlur" />
@@ -99,9 +98,9 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
         </filter>
 
         <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#06B6D4" />
-          <stop offset="50%" stopColor="#EC4899" />
-          <stop offset="100%" stopColor="#10B981" />
+          <stop offset="0%" stopColor="#e63946" />
+          <stop offset="50%" stopColor="#ff6b6b" />
+          <stop offset="100%" stopColor="#e63946" />
         </linearGradient>
 
         <path
@@ -111,35 +110,32 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
         />
       </defs>
 
-      {/* Outer orbit - Cyan */}
       {animated && (
         <circle
           className="orbit"
           cx="16"
           cy="16"
           r="10"
-          stroke="#06B6D4"
+          stroke="#e63946"
           strokeWidth="0.5"
           fill="none"
           opacity="0.3"
         />
       )}
 
-      {/* Middle orbit - Magenta (reverse) */}
       {animated && (
         <circle
           className="orbit reverse"
           cx="16"
           cy="16"
           r="6"
-          stroke="#EC4899"
+          stroke="#ff6b6b"
           strokeWidth="0.5"
           fill="none"
           opacity="0.3"
         />
       )}
 
-      {/* Flow path (river) */}
       <path
         d="M 8 16 Q 16 8 24 16 Q 16 24 8 16"
         stroke="url(#flowGradient)"
@@ -149,7 +145,6 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
         strokeLinecap="round"
       />
 
-      {/* Animated flow particles */}
       {animated && (
         <>
           <circle
@@ -157,7 +152,7 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
             cx="8"
             cy="16"
             r="1"
-            fill="#06B6D4"
+            fill="#e63946"
             filter="url(#glow)"
             style={{ animationDelay: '0s' }}
           />
@@ -166,7 +161,7 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
             cx="8"
             cy="16"
             r="1"
-            fill="#EC4899"
+            fill="#ff6b6b"
             filter="url(#glow)"
             style={{ animationDelay: '1s' }}
           />
@@ -175,30 +170,28 @@ export function RiverFlowLogo({ size = 'md', animated = true }: RiverFlowLogoPro
             cx="8"
             cy="16"
             r="1"
-            fill="#10B981"
+            fill="#e63946"
             filter="url(#glow)"
             style={{ animationDelay: '2s' }}
           />
         </>
       )}
 
-      {/* Core/center - pulsing */}
       <circle
         className={animated ? 'core-pulse' : ''}
         cx="16"
         cy="16"
         r="2"
-        fill="#06B6D4"
+        fill="#e63946"
         opacity="1"
         filter="url(#glow)"
       />
 
-      {/* Static version particles if not animated */}
       {!animated && (
         <>
-          <circle cx="12" cy="10" r="0.8" fill="#06B6D4" opacity="0.7" />
-          <circle cx="16" cy="8" r="0.8" fill="#EC4899" opacity="0.7" />
-          <circle cx="20" cy="10" r="0.8" fill="#10B981" opacity="0.7" />
+          <circle cx="12" cy="10" r="0.8" fill="#e63946" opacity="0.7" />
+          <circle cx="16" cy="8" r="0.8" fill="#ff6b6b" opacity="0.7" />
+          <circle cx="20" cy="10" r="0.8" fill="#e63946" opacity="0.7" />
         </>
       )}
     </svg>

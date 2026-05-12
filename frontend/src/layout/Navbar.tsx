@@ -9,13 +9,33 @@ interface NavItem {
 export function Navbar(): JSX.Element {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = (): void => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = ["about", "stack", "projects", "contact"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -37,80 +57,102 @@ export function Navbar(): JSX.Element {
   const handleNavClick = () => setMobileMenuOpen(false);
 
   return (
-    <nav
-      className={`fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300 ${
-        scrolled
-          ? "glass border border-[var(--border)]"
-          : "bg-transparent"
-      }`}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-        <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
-          <RiverFlowLogo size="sm" animated={true} />
-          <span className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] hidden sm:inline">
-            <span className="text-[var(--accent)]">&lt;</span>
-            River
-            <span className="text-gradient">Flow</span>
-            <span className="text-[var(--accent)]">/&gt;</span>
-          </span>
-        </a>
+    <>
+      <div className="grain-overlay" aria-hidden="true" />
+      <nav
+        className={`fixed top-5 left-4 right-4 z-[100] transition-all duration-700 ${
+          scrolled
+            ? "glass-strong rounded-2xl"
+            : "bg-transparent"
+        }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-5xl mx-auto px-5 py-3.5 flex justify-between items-center">
+          <a href="#" className="flex items-center gap-3 hover:opacity-80 transition-all duration-500 cursor-pointer group">
+            <RiverFlowLogo size="sm" animated={true} />
+            <span className="text-base sm:text-lg font-semibold text-[var(--text-primary)] tracking-tight">
+              <span className="text-[var(--accent)] group-hover:text-[var(--accent-hover)] transition-colors">&lt;</span>
+              River
+              <span className="text-gradient">Flow</span>
+              <span className="text-[var(--accent)] group-hover:text-[var(--accent-hover)] transition-colors">/&gt;</span>
+            </span>
+          </a>
 
-        <div className="hidden md:flex gap-6">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="cursor-pointer text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors duration-200 text-sm font-medium"
-            >
-              {item.label}
-            </a>
-          ))}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => {
+              const sectionId = item.href.replace("#", "");
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-500 cursor-pointer ${
+                    isActive
+                      ? "text-[var(--text-primary)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  {isActive && (
+                    <span className="absolute inset-0 bg-[var(--bg-tertiary)] border border-[var(--border-hover)] rounded-full animate-fade-in" />
+                  )}
+                  <span className="relative z-10">{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
+
+          <button
+            className="cursor-pointer md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] transition-all duration-300 hover:border-[var(--accent)] active:scale-[0.95]"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileMenuOpen}
+          >
+            <div className="relative w-5 h-5">
+              <span className={`absolute left-0 w-full h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? "top-1/2 rotate-45" : "top-0"}`} style={{ top: mobileMenuOpen ? "50%" : "0", transform: mobileMenuOpen ? "translateY(-50%)" : "" }} />
+              <span className={`absolute top-1/2 left-0 w-full h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`} style={{ transform: mobileMenuOpen ? "scale(0)" : "scale(1)" }} />
+              <span className={`absolute left-0 w-full h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? "top-1/2 -rotate-45" : "bottom-0"}`} style={{ top: mobileMenuOpen ? "50%" : "auto", bottom: mobileMenuOpen ? "auto" : "0", transform: mobileMenuOpen ? "translateY(-50%)" : "" }} />
+            </div>
+          </button>
         </div>
+      </nav>
 
-        <button
-          className="cursor-pointer md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] transition-all duration-200 hover:border-[var(--accent)]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={mobileMenuOpen}
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[60px] glass z-40">
-          <div className="flex flex-col py-4">
-            {navItems.map((item) => (
+      <div
+        className={`fixed inset-0 z-[90] glass-strong transition-all duration-500 ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex flex-col items-center justify-center min-h-screen py-24">
+          <div className="space-y-2 w-full max-w-xs">
+            {navItems.map((item, index) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={handleNavClick}
-                className="cursor-pointer block px-6 py-4 text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-colors border-b border-[var(--border)]"
+                className={`block px-6 py-4 text-center text-lg font-medium rounded-xl border border-[var(--border)] cursor-pointer transition-all duration-300 hover:border-[var(--border-hover)] hover:bg-[var(--accent-subtle)] ${
+                  mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+                style={{ transitionDelay: `${index * 80 + 100}ms` }}
               >
                 {item.label}
               </a>
             ))}
           </div>
           
-          <div className="absolute bottom-8 left-0 right-0 px-6">
+          <div className={`mt-12 transition-all duration-500 ${mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "450ms" }}>
             <a
               href="#contact"
               onClick={handleNavClick}
-              className="cursor-pointer block w-full py-4 text-center bg-[var(--accent)] text-[var(--bg-primary)] font-medium rounded-lg transition-opacity hover:opacity-90"
+              className="cursor-pointer inline-flex items-center gap-2 px-8 py-4 bg-[var(--accent)] text-[var(--text-primary)] font-semibold rounded-full transition-all duration-300 hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent-dim)] active:scale-[0.98]"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
               ¡Hablemos!
             </a>
           </div>
         </div>
-      )}
-    </nav>
+      </div>
+    </>
   );
 }

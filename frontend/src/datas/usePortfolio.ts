@@ -47,6 +47,7 @@ export interface ProfileStats {
 
 export interface Profile {
   name: string;
+  displayName?: string;
   title: string;
   tagline: string;
   bio: string[];
@@ -184,11 +185,17 @@ export function useMergedProfile(): Profile {
   };
 
   if (userLoading || statsLoading) {
-    return defaultProfile;
+    return {
+      ...defaultProfile,
+      avatar: `https://github.com/${config.githubUsername}.png`
+    };
   }
 
   if (!user || !stats) {
-    return defaultProfile;
+    return {
+      ...defaultProfile,
+      avatar: `https://github.com/${config.githubUsername}.png`
+    };
   }
 
   const createdDate = new Date(user.created_at);
@@ -245,8 +252,19 @@ export function useTerminalCommands() {
   return (portfolioData as any).terminal?.commands || {};
 }
 
-export function useProjects() {
-  return (portfolioData as any).projects || [];
+export function useProjects(): GitHubRepo[] {
+  const { repos } = useGitHubData();
+  if (!repos) return [];
+  return repos.filter(repo => !repo.name.startsWith('.') && !repo.name.includes('.github'));
+}
+
+export function useTechFromGitHub(): string[] {
+  const { stats } = useGitHubData();
+  if (!stats) return [];
+  return Object.entries(stats.topLanguages)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([lang]) => lang);
 }
 
 export function useContactConfig() {

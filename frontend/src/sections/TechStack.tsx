@@ -77,7 +77,7 @@ function TechWheel(): JSX.Element {
       {/* Background circles */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-[300px] h-[300px] rounded-full border border-cyan-500/10 border-dashed animate-[spin_60s_linear_infinite]" />
-        <div className="absolute w-[220px] h-[220px] rounded-full border border-red-500/10 border-dashed animate-[spin_40s_linear_infinite_reverse]" />
+        <div className="absolute w-[220px] h-[220px] rounded-full border border-cyan-500/10 border-dashed animate-[spin_40s_linear_infinite_reverse]" />
         <div className="absolute w-[140px] h-[140px] rounded-full border border-emerald-500/10 border-dashed animate-[spin_30s_linear_infinite]" />
       </div>
 
@@ -113,7 +113,7 @@ function TechWheel(): JSX.Element {
           return (
             <div
               key={`inner-${tech.name}`}
-              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[#0f0f14]/90 border border-red-500/30 flex items-center justify-center transition-all duration-300 hover:scale-125 hover:border-red-500/70 hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:bg-red-500/10`}
+              className={`absolute ${sizeClasses[tech.size]} rounded-xl bg-[#0f0f14]/90 border border-cyan-500/30 flex items-center justify-center transition-all duration-300 hover:scale-125 hover:border-cyan-500/70 hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:bg-cyan-500/10`}
               style={{
                 left: pos.x,
                 top: pos.y,
@@ -129,11 +129,11 @@ function TechWheel(): JSX.Element {
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative w-24 h-24">
           {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-red-800 rounded-full blur-xl opacity-50 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full blur-xl opacity-50 animate-pulse" />
           
           {/* Core circle */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-[#1a1a24] to-[#0f0f14] border-2 border-cyan-500/50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-red-500/20 to-emerald-500/20 animate-[spin_3s_linear_infinite] rounded-full" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-cyan-500/20 to-emerald-500/20 animate-[spin_3s_linear_infinite] rounded-full" />
             <SiReact size={36} className="text-cyan-400 relative z-10" />
           </div>
           
@@ -142,7 +142,7 @@ function TechWheel(): JSX.Element {
             <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#06b6d4]" />
           </div>
           <div className="absolute inset-0 animate-[spin_6s_linear_infinite_reverse]">
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-red-400 rounded-full shadow-[0_0_10px_#ef4444]" />
+            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#ef4444]" />
           </div>
         </div>
       </div>
@@ -222,7 +222,7 @@ const categories = [
   {
     id: 'tools',
     label: 'Tools',
-    color: 'from-orange-500 to-red-800',
+    color: 'from-orange-500 to-cyan-600',
     borderColor: 'border-orange-500/50',
     bgHover: 'hover:bg-orange-600/20',
     tech: technologies.filter(t => t.category === 'tools')
@@ -261,7 +261,7 @@ export function TechStack(): JSX.Element {
       
       {/* Background decoration */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-red-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
       
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <div className={`

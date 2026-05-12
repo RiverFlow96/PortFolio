@@ -184,14 +184,14 @@ export function Contact(): JSX.Element {
                     focus:outline-none focus:bg-[#1f1f2e] transition-colors duration-200
                     ${
                       errors.name
-                        ? "border-red-500/50 focus:border-red-500"
+                        ? "border-cyan-500/50 focus:border-cyan-500"
                         : "border-cyan-500/20 focus:border-cyan-500/60"
                     }
                     ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}
                   `}
                 />
                 {errors.name && (
-                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-cyan-400 text-xs mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.name}
                   </p>
@@ -213,14 +213,14 @@ export function Contact(): JSX.Element {
                     focus:outline-none focus:bg-[#1f1f2e] transition-colors duration-200
                     ${
                       errors.email
-                        ? "border-red-500/50 focus:border-red-500"
+                        ? "border-cyan-500/50 focus:border-cyan-500"
                         : "border-cyan-500/20 focus:border-cyan-500/60"
                     }
                     ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}
                   `}
                 />
                 {errors.email && (
-                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-cyan-400 text-xs mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.email}
                   </p>
@@ -240,14 +240,14 @@ export function Contact(): JSX.Element {
                     focus:outline-none focus:bg-[#1f1f2e] transition-colors duration-200 resize-none
                     ${
                       errors.message
-                        ? "border-red-500/50 focus:border-red-500"
+                        ? "border-cyan-500/50 focus:border-cyan-500"
                         : "border-cyan-500/20 focus:border-cyan-500/60"
                     }
                     ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}
                   `}
                 />
                 {errors.message && (
-                  <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-cyan-400 text-xs mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.message}
                   </p>
@@ -265,8 +265,8 @@ export function Contact(): JSX.Element {
                     status === "success"
                       ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                       : status === "error"
-                        ? "bg-red-500/20 text-red-400 border border-red-500/50"
-                        : "bg-gradient-to-r from-cyan-500 to-red-800 hover:from-cyan-600 hover:to-red-600 text-white hover:shadow-lg hover:shadow-cyan-500/25"
+                        ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                        : "bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-red-600 text-white hover:shadow-lg hover:shadow-cyan-500/25"
                   }
                   ${status === "loading" ? "opacity-70 cursor-wait" : ""}
                   disabled:cursor-not-allowed

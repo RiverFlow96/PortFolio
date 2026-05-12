@@ -6,7 +6,7 @@ function AnimatedCounter({ value, suffix = "", color, isVisible }: { value: numb
   
   const colorMap: Record<string, string> = {
     cyan: "text-cyan-400",
-    pink: "text-red-400", 
+    pink: "text-cyan-400", 
     emerald: "text-emerald-400"
   };
 
@@ -55,7 +55,7 @@ export function About(): JSX.Element {
 
   const colorMap = {
     cyan: "from-cyan-500/10 to-transparent hover:from-cyan-500/20 border-cyan-500/20 hover:border-cyan-500/40",
-    pink: "from-red-500/10 to-transparent hover:from-red-500/20 border-red-500/20 hover:border-red-500/40",
+    pink: "from-cyan-500/10 to-transparent hover:from-cyan-500/20 border-cyan-500/20 hover:border-cyan-500/40",
     emerald: "from-emerald-500/10 to-transparent hover:from-emerald-500/20 border-emerald-500/20 hover:border-emerald-500/40",
   };
 
@@ -72,7 +72,7 @@ export function About(): JSX.Element {
     <section id="about" ref={sectionRef} className="min-h-screen py-24 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-cyan-500/5 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-red-500/5 to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-cyan-500/5 to-transparent rounded-full blur-3xl" />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Section label */}
@@ -90,7 +90,7 @@ export function About(): JSX.Element {
           <div className="space-y-8">
             {/* Avatar with animated border */}
             <div className="relative inline-block">
-              <div className="relative w-40 h-40 rounded-2xl p-[2px] bg-gradient-to-br from-cyan-500 via-red-500 to-emerald-500">
+              <div className="relative w-40 h-40 rounded-2xl p-[2px] bg-gradient-to-br from-cyan-500 via-cyan-500 to-emerald-500">
                 <div className="w-full h-full rounded-2xl bg-[#0f0f14] overflow-hidden">
                   <img 
                     src={profile.avatar || "https://github.com/identicons/" + profile.name + ".png"} 
@@ -176,7 +176,7 @@ export function About(): JSX.Element {
           {/* Decorative header bar */}
           <div className="flex items-center gap-3 mb-4 pb-4 border-b border-cyan-500/10">
             <div className="flex gap-2">
-              <div className="w-3 h-3 bg-red-500/80 rounded-full" />
+              <div className="w-3 h-3 bg-cyan-500/80 rounded-full" />
               <div className="w-3 h-3 bg-yellow-500/80 rounded-full" />
               <div className="w-3 h-3 bg-emerald-500/80 rounded-full" />
             </div>

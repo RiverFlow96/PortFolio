@@ -21,7 +21,7 @@ interface Project {
 const difficultyColors = {
   Easy: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
   Medium: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  Hard: "bg-red-500/20 text-red-400 border-red-500/30"
+  Hard: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
 };
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
@@ -80,7 +80,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               <p className="text-gray-500 text-xs">Load Time</p>
             </div>
             <div className="bg-[#1a1a24] rounded-lg p-4 text-center">
-              <div className="text-red-400 font-mono text-sm font-bold mb-1">
+              <div className="text-cyan-400 font-mono text-sm font-bold mb-1">
                 {project.results.uptime}
               </div>
               <p className="text-gray-500 text-xs">Uptime</p>
@@ -113,7 +113,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-red-800 text-white rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg transition-colors"
             >
               <ExternalLink className="w-5 h-5" />
               Demo
@@ -161,14 +161,14 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
       
       <div className="relative p-5 space-y-4">
         <div className="flex items-start justify-between">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-red-800/20 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center">
             <ArrowUpRight className="w-4 h-4 text-cyan-400" />
           </div>
           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-400" onClick={(e) => e.stopPropagation()}>
               <Github className="w-4 h-4" />
             </a>
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-red-500/20 hover:bg-red-500/40 rounded-lg text-red-400" onClick={(e) => e.stopPropagation()}>
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-400" onClick={(e) => e.stopPropagation()}>
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
@@ -190,7 +190,7 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
           <div className="text-center text-cyan-400 font-mono text-sm font-bold">
             {project.results.loadTime}
           </div>
-          <div className="text-center text-red-400 font-mono text-sm font-bold">
+          <div className="text-center text-cyan-400 font-mono text-sm font-bold">
             {project.results.uptime}
           </div>
         </div>
@@ -203,7 +203,7 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
           ))}
         </div>
         
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-600 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-600 to-cyan-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
       </div>
     </div>
   );

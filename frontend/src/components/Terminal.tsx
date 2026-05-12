@@ -38,7 +38,7 @@ function TerminalLine({ command, output, isTyping }: TerminalLineProps): JSX.Ele
     <div className="font-mono text-sm space-y-2">
       <div className="flex items-center gap-2 text-cyan-400">
         <span className="text-emerald-400">➜</span>
-        <span className="text-red-400">~</span>
+        <span className="text-cyan-400">~</span>
         <span>{command}</span>
       </div>
       <div className="text-gray-300 whitespace-pre-wrap pl-4 leading-relaxed">
@@ -103,7 +103,7 @@ export function Terminal(): JSX.Element {
     <div className="w-full bg-[#0f0f14]/80 border border-cyan-500/20 rounded-xl p-6 backdrop-blur-sm font-mono text-sm">
       <div className="flex items-center justify-between mb-4 pb-4 border-b border-cyan-500/10">
         <div className="flex items-center gap-3">
-          <div className="w-3 h-3 rounded-full bg-red-500/70" />
+          <div className="w-3 h-3 rounded-full bg-cyan-500/70" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
           <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
         </div>
@@ -125,7 +125,7 @@ export function Terminal(): JSX.Element {
 
       <div className="flex items-center gap-2 border-t border-cyan-500/10 pt-4">
         <span className="text-emerald-400">➜</span>
-        <span className="text-red-400">~</span>
+        <span className="text-cyan-400">~</span>
         <input
           type="text"
           value={input}

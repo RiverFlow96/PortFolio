@@ -113,7 +113,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-red-500 text-white rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-red-800 text-white rounded-lg transition-colors"
             >
               <ExternalLink className="w-5 h-5" />
               Demo
@@ -161,7 +161,7 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
       
       <div className="relative p-5 space-y-4">
         <div className="flex items-start justify-between">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-red-500/20 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-red-800/20 flex items-center justify-center">
             <ArrowUpRight className="w-4 h-4 text-cyan-400" />
           </div>
           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -203,7 +203,7 @@ function ProjectCard({ project, index, isVisible, onClick }: { project: Project;
           ))}
         </div>
         
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-600 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-600 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
       </div>
     </div>
   );

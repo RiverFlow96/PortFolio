@@ -103,7 +103,7 @@ export function Navbar(): JSX.Element {
             <a
               href="#contact"
               onClick={handleNavClick}
-              className="block w-full py-4 text-center bg-gradient-to-r from-cyan-500 to-red-500 text-white font-mono font-medium rounded-lg active:scale-[0.98] transition-transform"
+              className="block w-full py-4 text-center bg-gradient-to-r from-cyan-500 to-red-800 text-white font-mono font-medium rounded-lg active:scale-[0.98] transition-transform"
             >
               ¡Hablemos!
             </a>

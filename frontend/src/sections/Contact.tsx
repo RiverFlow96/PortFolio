@@ -266,7 +266,7 @@ export function Contact(): JSX.Element {
                       ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                       : status === "error"
                         ? "bg-red-500/20 text-red-400 border border-red-500/50"
-                        : "bg-gradient-to-r from-cyan-500 to-red-500 hover:from-cyan-600 hover:to-red-600 text-white hover:shadow-lg hover:shadow-cyan-500/25"
+                        : "bg-gradient-to-r from-cyan-500 to-red-800 hover:from-cyan-600 hover:to-red-600 text-white hover:shadow-lg hover:shadow-cyan-500/25"
                   }
                   ${status === "loading" ? "opacity-70 cursor-wait" : ""}
                   disabled:cursor-not-allowed

@@ -129,7 +129,7 @@ function TechWheel(): JSX.Element {
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative w-24 h-24">
           {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-red-500 rounded-full blur-xl opacity-50 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-red-800 rounded-full blur-xl opacity-50 animate-pulse" />
           
           {/* Core circle */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-[#1a1a24] to-[#0f0f14] border-2 border-cyan-500/50 flex items-center justify-center">
@@ -222,7 +222,7 @@ const categories = [
   {
     id: 'tools',
     label: 'Tools',
-    color: 'from-orange-500 to-red-500',
+    color: 'from-orange-500 to-red-800',
     borderColor: 'border-orange-500/50',
     bgHover: 'hover:bg-orange-600/20',
     tech: technologies.filter(t => t.category === 'tools')

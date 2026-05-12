@@ -39,7 +39,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-red-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-red-800;
   }
 
   .text-gradient-cyan {
@@ -47,11 +47,11 @@
   }
 
   .text-gradient-magenta {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-900;
   }
 
   .text-gradient-ether {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-white to-red-300;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-amber-200 to-red-400;
   }
 
   .glow-cyan {

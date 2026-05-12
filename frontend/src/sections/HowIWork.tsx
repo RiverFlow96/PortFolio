@@ -250,7 +250,7 @@ export function HowIWork(): JSX.Element {
 
         {/* Principles */}
         <div className={`
-          mt-20 p-8 bg-gradient-to-r from-cyan-500/5 to-red-500/5 border border-cyan-500/10 rounded-2xl
+          mt-20 p-8 bg-gradient-to-r from-cyan-500/5 to-red-800/5 border border-cyan-500/10 rounded-2xl
           transition-all duration-700 delay-700
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
         `}>

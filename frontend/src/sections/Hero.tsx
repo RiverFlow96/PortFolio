@@ -78,7 +78,7 @@ export function Hero(): JSX.Element {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 opacity-0 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
           <a
             href={cta.primary.href}
-            className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-red-500 text-white font-mono font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:scale-105"
+            className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-red-800 text-white font-mono font-medium rounded-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:scale-105"
           >
             <span className="relative z-10">{cta.primary.text}</span>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-red-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -96,7 +96,7 @@ export function Hero(): JSX.Element {
           {profile.stats?.topLanguages?.slice(0, 4).map((tech: string, i: number) => (
             <div key={tech} className="flex items-center gap-2 group">
               <span className={`text-sm font-mono ${
-                i === 0 ? 'text-cyan-400' : i === 1 ? 'text-red-400' : i === 2 ? 'text-emerald-400' : 'text-purple-400'
+                i === 0 ? 'text-cyan-400' : i === 1 ? 'text-amber-400' : i === 2 ? 'text-emerald-400' : 'text-purple-400'
               }`}>
                 {tech}
               </span>

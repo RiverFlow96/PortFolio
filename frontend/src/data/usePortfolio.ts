@@ -84,7 +84,7 @@ export async function fetchGitHubData(username: string): Promise<{
     const headers = {
       'Accept': 'application/vnd.github.v3+json',
     };
-    
+
     const userRes = await fetch(`https://api.github.com/users/${username}`, { headers });
     if (!userRes.ok) {
       throw new Error(`User not found: ${userRes.status}`);

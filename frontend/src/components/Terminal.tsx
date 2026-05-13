@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTerminalCommands } from '../datas/usePortfolio';
+import { useTerminalCommands } from '../data/usePortfolio';
 
 interface HistoryItem {
   command: string;

@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useContactConfig, useSocial } from "../datas/usePortfolio";
+import { useContactConfig, useSocial } from "../data/usePortfolio";
 import { Send, CheckCircle, AlertCircle, Loader2, ArrowUpRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa6";
 

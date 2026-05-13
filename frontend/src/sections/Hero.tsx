@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useMergedProfile, useCTA } from "../datas/usePortfolio";
+import { useMergedProfile, useCTA } from "../data/usePortfolio";
 
 export function Hero(): JSX.Element {
   const profile = useMergedProfile();
@@ -25,14 +25,16 @@ export function Hero(): JSX.Element {
     return () => clearInterval(interval);
   }, [profile.tagline]);
 
-
-
   const scrollToNext = (): void => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section ref={sectionRef} className="min-h-[100dvh] flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
+    <section
+      ref={sectionRef}
+      className="min-h-[100dvh] flex items-center justify-center relative overflow-hidden"
+      aria-label="Hero section"
+    >
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)] opacity-60" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)] opacity-40" />
@@ -42,43 +44,69 @@ export function Hero(): JSX.Element {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
           <div className="space-y-8">
-            <div 
+            <div
               className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[var(--accent-dim)] border border-[var(--border-hover)] transition-all duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
               role="status"
             >
               <div className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-              <span className="text-sm text-[var(--accent)] font-medium tracking-tight">{profile.title}</span>
+              <span className="text-sm text-[var(--accent)] font-medium tracking-tight">
+                {profile.title}
+              </span>
             </div>
 
-            <div className={`space-y-4 transition-all duration-700 delay-150 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
+            <div
+              className={`space-y-4 transition-all duration-700 delay-150 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
+            >
               <p className="text-sm font-medium text-[var(--text-muted)] uppercase tracking-widest">
                 Hola, soy
               </p>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[var(--text-primary)] tracking-tight leading-[1.1]">
-                <span className="block">{profile.displayName || profile.name}</span>
-                <span className="text-gradient block mt-2">{profile.name}</span>
+                <span className="block">{profile.name}</span>
+                <span className="text-gradient block mt-2">
+                  {profile.displayName}
+                </span>
               </h1>
             </div>
 
-            <div className={`transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div
+              className={`transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            >
               <p className="text-xl sm:text-2xl text-[var(--text-secondary)] font-light min-h-[2.5rem]">
                 {text}
-                <span className={`inline-block w-[2px] h-6 bg-[var(--accent)] ml-1 align-middle ${isTypingComplete ? "animate-blink" : ""}`} aria-hidden="true" />
+                <span
+                  className={`inline-block w-[2px] h-6 bg-[var(--accent)] ml-1 align-middle ${isTypingComplete ? "animate-blink" : ""}`}
+                  aria-hidden="true"
+                />
               </p>
             </div>
 
-            <p className={`text-base text-[var(--text-muted)] leading-relaxed max-w-lg transition-all duration-700 delay-450 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p
+              className={`text-base text-[var(--text-muted)] leading-relaxed max-w-lg transition-all duration-700 delay-450 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            >
               {profile.bio[0]}
             </p>
 
-            <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-550 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div
+              className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-550 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            >
               <a
                 href={cta.primary.href}
                 className="group cursor-pointer inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[var(--accent)] text-[var(--text-primary)] font-semibold rounded-full transition-all duration-500 hover:bg-[var(--accent-hover)] hover:shadow-xl hover:shadow-[var(--accent-dim)] active:scale-[0.98]"
               >
                 {cta.primary.text}
-                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg
+                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </a>
               <a
@@ -86,14 +114,27 @@ export function Hero(): JSX.Element {
                 className="group cursor-pointer inline-flex items-center justify-center gap-2.5 px-8 py-4 border border-[var(--border)] text-[var(--text-primary)] font-semibold rounded-full transition-all duration-500 hover:border-[var(--accent)] hover:bg-[var(--accent-subtle)] active:scale-[0.98]"
               >
                 {cta.secondary.text}
-                <svg className="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l10-10m0 0v6m0-6h-6" />
+                <svg
+                  className="w-4 h-4 opacity-60"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 17l10-10m0 0v6m0-6h-6"
+                  />
                 </svg>
               </a>
             </div>
           </div>
 
-          <div className={`hidden lg:flex justify-end transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+          <div
+            className={`hidden lg:flex justify-end transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+          >
             <div className="relative">
               <div className="absolute inset-0 bg-[var(--accent)] blur-[100px] opacity-20 rounded-full" />
               <div className="relative w-[320px] h-[320px] rounded-3xl overflow-hidden border border-[var(--border)]">
@@ -104,9 +145,14 @@ export function Hero(): JSX.Element {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
               </div>
-              <div className="absolute -bottom-6 -right-6 glass rounded-2xl px-5 py-3 animate-float" style={{ animationDelay: "0.5s" }}>
+              <div
+                className="absolute -bottom-6 -right-6 glass rounded-2xl px-5 py-3 animate-float"
+                style={{ animationDelay: "0.5s" }}
+              >
                 <p className="text-xs text-[var(--text-muted)]">Stack actual</p>
-                <p className="text-sm font-semibold text-[var(--text-primary)]">React + Django</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">
+                  React + Django
+                </p>
               </div>
             </div>
           </div>

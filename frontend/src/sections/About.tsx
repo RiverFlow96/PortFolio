@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useMergedProfile, usePhilosophy, useGitHubData } from "../datas/usePortfolio";
+import { useMergedProfile, usePhilosophy, useGitHubData } from "../data/usePortfolio";
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter, FaStar, FaCode, FaUsers, FaFolder } from "react-icons/fa6";
 
 function AnimatedCounter({ value, suffix = "", isVisible, delay = 0 }: { value: number; suffix: string; isVisible: boolean; delay?: number }) {

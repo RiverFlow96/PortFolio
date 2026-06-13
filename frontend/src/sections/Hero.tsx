@@ -163,12 +163,7 @@ export function Hero(): JSX.Element {
         onClick={scrollToNext}
         className="cursor-pointer absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[var(--text-muted)] hover:text-[var(--accent)] transition-all duration-500 animate-fade-in delay-1000"
         aria-label="Scroll to next section"
-      >
-        <span className="text-xs tracking-[0.2em] uppercase">Explorar</span>
-        <div className="w-6 h-10 rounded-full border border-[var(--border)] flex items-start justify-center p-1.5">
-          <div className="w-1.5 h-2.5 rounded-full bg-[var(--accent)] animate-bounce" />
-        </div>
-      </button>
+      ></button>
     </section>
   );
 }

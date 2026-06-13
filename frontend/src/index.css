@@ -214,9 +214,25 @@
     padding: 8rem 1.5rem;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .section-padding-lg {
       padding: 10rem 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-padding-lg {
+      padding: 12rem 2rem;
+    }
+  }
+
+  .scroll-offset {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    .scroll-offset {
+      scroll-margin-top: 5rem;
     }
   }
 

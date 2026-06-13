@@ -109,7 +109,7 @@ export function HowIWork(): JSX.Element {
     <section
       id="process"
       ref={sectionRef}
-      className="section-padding-lg relative overflow-hidden"
+      className="section-padding-lg scroll-offset relative overflow-hidden"
     >
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />

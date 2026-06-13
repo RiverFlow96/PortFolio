@@ -52,7 +52,7 @@ export function Contact(): JSX.Element {
   };
 
   return (
-    <section id="contact" className="section-padding-lg relative" aria-labelledby="contact-heading">
+    <section id="contact" className="section-padding-lg scroll-offset relative" aria-labelledby="contact-heading">
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)]" />
       </div>

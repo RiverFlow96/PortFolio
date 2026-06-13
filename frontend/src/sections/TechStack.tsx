@@ -122,12 +122,12 @@ export function TechStack(): JSX.Element {
   ];
 
   return (
-    <section
-      id="stack"
-      ref={sectionRef}
-      className="section-padding-lg relative"
-      aria-labelledby="stack-heading"
-    >
+      <section
+        id="stack"
+        ref={sectionRef}
+        className="section-padding-lg scroll-offset relative"
+        aria-labelledby="stack-heading"
+      >
       <div className="absolute inset-0">
         <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>
@@ -148,7 +148,7 @@ export function TechStack(): JSX.Element {
         </h2>
 
         <div
-          className={`mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+          className={`hidden md:block mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
         >
           <OrbitingSkills />
         </div>

@@ -82,7 +82,7 @@ export function About(): JSX.Element {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding-lg relative" aria-labelledby="about-heading">
+    <section id="about" ref={sectionRef} className="section-padding-lg scroll-offset relative" aria-labelledby="about-heading">
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>

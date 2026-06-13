@@ -54,3 +54,5 @@ Thumbs.db
 # Misc
 *.log
 .cache/
+.agents/
+.claude/

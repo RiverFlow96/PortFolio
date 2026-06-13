@@ -42,13 +42,13 @@
     },
     {
       "label": "Email",
-      "href": "mailto:contact@riverflow.dev",
+      "href": "yordanyalmeda8@gmail.com",
       "icon": "mail"
     },
     {
-      "label": "Twitter",
-      "href": "https://twitter.com/riverflow",
-      "icon": "twitter"
+      "label": "Facebook",
+      "href": "https://www.facebook.com/profile.php?id=61590889075921",
+      "icon": "facebook"
     }
   ],
   "stats": [
@@ -113,7 +113,7 @@
     "secondary": { "text": "Ver Proyectos", "href": "#projects" }
   },
   "contact": {
-    "email": "contact@riverflow.dev",
+    "email": "yordanyalmeda8@gmail.com",
     "subject": "Nuevo mensaje desde tu portfolio",
     "successMessage": "¡Mensaje enviado! Te responderé pronto.",
     "errorMessage": "Algo salió mal. Intenta de nuevo."

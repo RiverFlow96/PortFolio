@@ -52,15 +52,9 @@ Key files:
 
 ---
 
-## Dead Code / Known Issues
+## Known Issues
 
-Do not touch or rely on these:
-
-- `data/projects.ts` — legacy, unused (use `portfolio.json` instead)
-- `hooks/useScrollReveal.ts` — unused; sections use inline IntersectionObserver
-- `vite.config.js` — stale duplicate of `vite.config.ts` (no `@` alias)
-- `zustand` and `axios` in `package.json` — installed but never imported
-- **No test setup exists** (Vitest + RTL listed as medium priority in `recommendations.md`)
+- **No test setup exists** (Vitest + RTL — pending implementation)
 - **No CI/CD** (deploy is manual)
 
 ---
@@ -87,5 +81,4 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 
 ## References
 
-- `recommendations.md` — definitive TODO list (dead-code cleanup, A11y, Error Boundary, testing)
 - `frontend/AGENTS.md` — frontend-specific detail

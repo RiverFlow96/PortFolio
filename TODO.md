@@ -1,1 +1,0 @@
-- Animacion de iconos de tecnologias en rueda

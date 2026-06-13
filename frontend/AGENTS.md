@@ -59,17 +59,9 @@ File: `src/index.css:7-27`. **Do NOT trust the README colors:**
 
 ---
 
-## Dead / Stale Code
-
-- `hooks/useScrollReveal.ts` — unused (sections use inline IntersectionObserver)
-- `data/projects.ts` — legacy, replaced by `portfolio.json`
-- `zustand`, `axios` in `package.json` — installed but never imported
-
----
-
 ## What's Missing
 
-- **No test setup** (Vitest + RTL recommended in `../recommendations.md`)
+- **No test setup** (Vitest + RTL — pending implementation)
 - **No linter/formatter config**
 
 ---

@@ -3,6 +3,8 @@ import { useContactConfig, useSocial } from "../data/usePortfolio";
 import {
   Send,
   CheckCircle,
+  Loader2,
+  AlertCircle,
   ArrowUpRight,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope } from "react-icons/fa6";
@@ -19,7 +21,7 @@ interface FormErrors {
   message?: string;
 }
 
-type FormStatus = "idle" | "success";
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 export function Contact(): JSX.Element {
   const contactConfig = useContactConfig();
@@ -47,16 +49,38 @@ export function Contact(): JSX.Element {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     if (!validateForm()) return;
-    const subject = encodeURIComponent(contactConfig.subject);
-    const body = encodeURIComponent(
-      `Nombre: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\n${formData.message.trim()}`,
-    );
-    window.location.href = `mailto:${contactConfig.email}?subject=${subject}&body=${body}`;
-    setStatus("success");
-    setTimeout(() => setStatus("idle"), 7000);
+
+    setStatus("loading");
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(contactConfig.email)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          _subject: contactConfig.subject,
+          _replyto: formData.email.trim(),
+          _template: "table",
+        }),
+      });
+
+      const result: { success?: boolean | string } = await response.json();
+      if (!response.ok || (result.success !== true && result.success !== "true")) {
+        throw new Error("No se pudo enviar el mensaje");
+      }
+
+      setFormData({ name: "", email: "", message: "" });
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const handleChange = (field: keyof FormData, value: string): void => {
@@ -152,6 +176,9 @@ export function Contact(): JSX.Element {
             <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-6">
               Envia un mensaje
             </h3>
+            <p className="text-sm text-[var(--text-muted)] mb-5">
+              El mensaje se enviará a mi correo mediante <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--text-secondary)]">FormSubmit</a>.
+            </p>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
                 <label htmlFor="contact-name" className="sr-only">Tu nombre</label>
@@ -202,11 +229,12 @@ export function Contact(): JSX.Element {
               </div>
               <button
                 type="submit"
+                disabled={status === "loading"}
                 aria-live="polite"
-                className={`group cursor-pointer w-full py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 ${status === "success" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-[var(--accent)] text-[var(--text-primary)] hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent-dim)]"} active:scale-[0.98]`}
+                className={`group cursor-pointer w-full py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 ${status === "success" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : status === "error" ? "bg-red-500/20 text-red-400 border border-red-500/30" : "bg-[var(--accent)] text-[var(--text-primary)] hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent-dim)]"} disabled:cursor-not-allowed active:scale-[0.98]`}
               >
-                {status === "success" ? <CheckCircle className="w-5 h-5" /> : <Send className="w-5 h-5" />}
-                {status === "success" ? contactConfig.successMessage : "Preparar correo"}
+                {status === "loading" ? <Loader2 className="w-5 h-5 animate-spin" /> : status === "success" ? <CheckCircle className="w-5 h-5" /> : status === "error" ? <AlertCircle className="w-5 h-5" /> : <Send className="w-5 h-5" />}
+                {status === "loading" ? "Enviando..." : status === "success" ? contactConfig.successMessage : status === "error" ? contactConfig.errorMessage : "Enviar mensaje"}
               </button>
             </form>
           </div>

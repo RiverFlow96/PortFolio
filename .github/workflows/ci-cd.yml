@@ -5,13 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -23,15 +20,12 @@ concurrency:
 jobs:
   build:
     name: Type check and build
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       VITE_BASE_PATH: /PortFolio/
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -53,24 +47,61 @@ jobs:
         run: npm run build
 
       - name: Configure GitHub Pages
-        if: github.event_name == 'workflow_run'
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload site artifact
-        if: github.event_name == 'workflow_run'
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
 
   deploy:
     name: Deploy GitHub Pages
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Wait for the default Pages build
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const startedAt = Date.now();
+            const timeoutMs = 10 * 60 * 1000;
+
+            while (Date.now() - startedAt < timeoutMs) {
+              const { data } = await github.rest.actions.listWorkflowRunsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head_sha: context.sha,
+                per_page: 100,
+              });
+              const pagesRun = data.workflow_runs.find(
+                (run) =>
+                  run.name === "pages build and deployment" &&
+                  run.head_sha === context.sha
+              );
+
+              if (pagesRun?.status === "completed") {
+                if (pagesRun.conclusion !== "success") {
+                  throw new Error(
+                    `Default Pages build ended with ${pagesRun.conclusion}`
+                  );
+                }
+                core.info("Default Pages build completed; deploying the Vite artifact last.");
+                return;
+              }
+
+              core.info("Waiting for the default Pages build to finish.");
+              await new Promise((resolve) => setTimeout(resolve, 5000));
+            }
+
+            throw new Error("Timed out while waiting for the default Pages build.");
+
       - name: Deploy site
         id: deployment
         uses: actions/deploy-pages@v4

@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -19,12 +23,15 @@ concurrency:
 jobs:
   build:
     name: Type check and build
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       VITE_BASE_PATH: /PortFolio/
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -46,18 +53,18 @@ jobs:
         run: npm run build
 
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_run'
         uses: actions/configure-pages@v5
 
       - name: Upload site artifact
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_run'
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
 
   deploy:
     name: Deploy GitHub Pages
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
     needs: build
     runs-on: ubuntu-latest
     environment:

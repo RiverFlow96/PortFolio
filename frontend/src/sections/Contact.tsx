@@ -3,8 +3,6 @@ import { useContactConfig, useSocial } from "../data/usePortfolio";
 import {
   Send,
   CheckCircle,
-  AlertCircle,
-  Loader2,
   ArrowUpRight,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope } from "react-icons/fa6";
@@ -21,7 +19,7 @@ interface FormErrors {
   message?: string;
 }
 
-type FormStatus = "idle" | "loading" | "success" | "error";
+type FormStatus = "idle" | "success";
 
 export function Contact(): JSX.Element {
   const contactConfig = useContactConfig();
@@ -49,7 +47,7 @@ export function Contact(): JSX.Element {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (!validateForm()) return;
     const subject = encodeURIComponent(contactConfig.subject);
@@ -63,6 +61,7 @@ export function Contact(): JSX.Element {
 
   const handleChange = (field: keyof FormData, value: string): void => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    setStatus("idle");
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
@@ -106,9 +105,10 @@ export function Contact(): JSX.Element {
                 (social: { label: string; href: string; icon: string }) => (
                   <a
                     key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={social.href.startsWith("mailto:") ? social.href : social.icon === "mail" ? `mailto:${social.href}` : social.href}
+                    target={social.href.startsWith("mailto:") || social.icon === "mail" ? undefined : "_blank"}
+                    rel={social.href.startsWith("mailto:") || social.icon === "mail" ? undefined : "noopener noreferrer"}
+                    aria-label={`Abrir ${social.label}${social.icon === "mail" ? "" : " en una pestaña nueva"}`}
                     className="group cursor-pointer flex items-center justify-between p-5 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border)] hover:border-[var(--border-hover)] hover:bg-[var(--accent-subtle)] transition-all duration-500"
                   >
                     <div className="flex items-center gap-4">
@@ -202,22 +202,11 @@ export function Contact(): JSX.Element {
               </div>
               <button
                 type="submit"
-                disabled={status === "loading"}
-                className={`group cursor-pointer w-full py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 ${status === "success" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : status === "error" ? "bg-red-500/20 text-red-400 border border-red-500/30" : "bg-[var(--accent)] text-[var(--text-primary)] hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent-dim)]"} disabled:cursor-not-allowed active:scale-[0.98]`}
+                aria-live="polite"
+                className={`group cursor-pointer w-full py-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 ${status === "success" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-[var(--accent)] text-[var(--text-primary)] hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent-dim)]"} active:scale-[0.98]`}
               >
-                {status === "loading" && (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                )}
-                {status === "success" && <CheckCircle className="w-5 h-5" />}
-                {status === "error" && <AlertCircle className="w-5 h-5" />}
-                {status === "idle" && <Send className="w-5 h-5" />}
-                {status === "idle"
-                  ? "Enviar mensaje"
-                  : status === "loading"
-                    ? "Enviando..."
-                    : status === "success"
-                      ? contactConfig.successMessage
-                      : contactConfig.errorMessage}
+                {status === "success" ? <CheckCircle className="w-5 h-5" /> : <Send className="w-5 h-5" />}
+                {status === "success" ? contactConfig.successMessage : "Preparar correo"}
               </button>
             </form>
           </div>

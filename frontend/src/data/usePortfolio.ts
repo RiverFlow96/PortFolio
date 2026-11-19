@@ -271,7 +271,7 @@ export function useContactConfig() {
   return (portfolioData as any).contact || {
     email: 'contact@riverflow.dev',
     subject: 'Nuevo mensaje desde tu portfolio',
-    successMessage: '¡Mensaje enviado! Te responderé pronto.',
+    successMessage: 'Borrador preparado en tu correo. Revísalo y pulsa Enviar.',
     errorMessage: 'Algo salió mal. Intenta de nuevo.'
   };
 }

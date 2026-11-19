@@ -52,11 +52,13 @@ export function Contact(): JSX.Element {
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     if (!validateForm()) return;
-    setStatus("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setFormData({ name: "", email: "", message: "" });
+    const subject = encodeURIComponent(contactConfig.subject);
+    const body = encodeURIComponent(
+      `Nombre: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\n${formData.message.trim()}`,
+    );
+    window.location.href = `mailto:${contactConfig.email}?subject=${subject}&body=${body}`;
     setStatus("success");
-    setTimeout(() => setStatus("idle"), 5000);
+    setTimeout(() => setStatus("idle"), 7000);
   };
 
   const handleChange = (field: keyof FormData, value: string): void => {
@@ -152,8 +154,10 @@ export function Contact(): JSX.Element {
             </h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
+                <label htmlFor="contact-name" className="sr-only">Tu nombre</label>
                 <input
                   type="text"
+                  id="contact-name"
                   placeholder="Tu nombre *"
                   aria-required="true"
                   value={formData.name}
@@ -166,8 +170,10 @@ export function Contact(): JSX.Element {
                 )}
               </div>
               <div className="space-y-2">
+                <label htmlFor="contact-email" className="sr-only">Tu email</label>
                 <input
                   type="email"
+                  id="contact-email"
                   placeholder="Tu email *"
                   aria-required="true"
                   value={formData.email}
@@ -180,7 +186,9 @@ export function Contact(): JSX.Element {
                 )}
               </div>
               <div className="space-y-2">
+                <label htmlFor="contact-message" className="sr-only">Tu mensaje</label>
                 <textarea
+                  id="contact-message"
                   placeholder="Tu mensaje... *"
                   rows={5}
                   value={formData.message}

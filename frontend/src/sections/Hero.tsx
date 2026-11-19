@@ -33,7 +33,7 @@ export function Hero(): JSX.Element {
     <section
       ref={sectionRef}
       className="min-h-[100dvh] flex items-center justify-center relative overflow-hidden"
-      aria-label="Hero section"
+      aria-label="Sección de presentación"
     >
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)] opacity-60" />
@@ -162,8 +162,13 @@ export function Hero(): JSX.Element {
       <button
         onClick={scrollToNext}
         className="cursor-pointer absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[var(--text-muted)] hover:text-[var(--accent)] transition-all duration-500 animate-fade-in delay-1000"
-        aria-label="Scroll to next section"
-      ></button>
+        aria-label="Desplazarse a la sección Sobre mí"
+      >
+        <span className="text-xs uppercase tracking-[0.2em]">Desliza para explorar</span>
+        <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
     </section>
   );
 }

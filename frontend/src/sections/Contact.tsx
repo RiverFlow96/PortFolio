@@ -38,13 +38,13 @@ export function Contact(): JSX.Element {
     const newErrors: FormErrors = {};
     if (!formData.name.trim()) newErrors.name = "El nombre es requerido";
     else if (formData.name.trim().length < 2)
-      newErrors.name = "Minimo 2 caracteres";
+      newErrors.name = "Mínimo 2 caracteres";
     if (!formData.email.trim()) newErrors.email = "El email es requerido";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Email invalido";
+      newErrors.email = "Correo electrónico no válido";
     if (!formData.message.trim()) newErrors.message = "El mensaje es requerido";
     else if (formData.message.trim().length < 10)
-      newErrors.message = "Minimo 10 caracteres";
+      newErrors.message = "Mínimo 10 caracteres";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -95,7 +95,7 @@ export function Contact(): JSX.Element {
       className="section-padding-lg scroll-offset relative"
       aria-labelledby="contact-heading"
     >
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)]" />
       </div>
 
@@ -116,10 +116,10 @@ export function Contact(): JSX.Element {
 
         <p className="text-[var(--text-secondary)] mb-16 max-w-xl text-lg">
           Estoy abierto a nuevas oportunidades, colaboraciones y proyectos
-          desafiantes. Escribeme.
+          desafiantes. Escríbeme.
         </p>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           <div className="space-y-8">
             <h3 className="text-xl font-semibold text-[var(--text-primary)]">
               Conectemos
@@ -161,20 +161,20 @@ export function Contact(): JSX.Element {
             </div>
             <div className="p-6 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border)]">
               <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                Email directo
+                Correo directo
               </p>
               <a
                 href={`mailto:${contactConfig.email}`}
-                className="text-lg text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors font-medium"
+                className="text-lg text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors font-medium [overflow-wrap:anywhere]"
               >
                 {contactConfig.email}
               </a>
             </div>
           </div>
 
-          <div className="glass rounded-3xl p-8 hover:border-[var(--border-hover)] transition-all duration-500">
+          <div className="glass rounded-3xl p-5 sm:p-8 hover:border-[var(--border-hover)] transition-all duration-500">
             <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-6">
-              Envia un mensaje
+              Envía un mensaje
             </h3>
             <p className="text-sm text-[var(--text-muted)] mb-5">
               El mensaje se enviará a mi correo mediante <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--text-secondary)]">FormSubmit</a>.
@@ -185,46 +185,53 @@ export function Contact(): JSX.Element {
                 <input
                   type="text"
                   id="contact-name"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "contact-name-error" : undefined}
                   placeholder="Tu nombre *"
                   aria-required="true"
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   disabled={status === "loading"}
-                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none transition-all duration-300 ${errors.name ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-300 ${errors.name ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
                 />
                 {errors.name && (
-                  <p className="text-red-400 text-xs">{errors.name}</p>
+                  <p id="contact-name-error" className="text-red-400 text-xs">{errors.name}</p>
                 )}
               </div>
               <div className="space-y-2">
-                <label htmlFor="contact-email" className="sr-only">Tu email</label>
+                <label htmlFor="contact-email" className="sr-only">Tu correo electrónico</label>
                 <input
                   type="email"
                   id="contact-email"
-                  placeholder="Tu email *"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "contact-email-error" : undefined}
+                  placeholder="Tu correo electrónico *"
                   aria-required="true"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   disabled={status === "loading"}
-                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none transition-all duration-300 ${errors.email ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-300 ${errors.email ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
                 />
                 {errors.email && (
-                  <p className="text-red-400 text-xs">{errors.email}</p>
+                  <p id="contact-email-error" className="text-red-400 text-xs">{errors.email}</p>
                 )}
               </div>
               <div className="space-y-2">
                 <label htmlFor="contact-message" className="sr-only">Tu mensaje</label>
                 <textarea
                   id="contact-message"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "contact-message-error" : undefined}
+                  aria-required="true"
                   placeholder="Tu mensaje... *"
                   rows={5}
                   value={formData.message}
                   onChange={(e) => handleChange("message", e.target.value)}
                   disabled={status === "loading"}
-                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none transition-all duration-300 resize-none ${errors.message ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`w-full px-5 py-4 rounded-xl bg-[var(--bg-tertiary)] border text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-300 resize-none ${errors.message ? "border-red-500" : "border-[var(--border)] focus:border-[var(--accent)]"} ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}`}
                 />
                 {errors.message && (
-                  <p className="text-red-400 text-xs">{errors.message}</p>
+                  <p id="contact-message-error" className="text-red-400 text-xs">{errors.message}</p>
                 )}
               </div>
               <button

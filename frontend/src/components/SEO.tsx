@@ -12,14 +12,15 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = "RiverFlow | Developer-Designer Fullstack",
-  description = "Building Fast, Scalable Web Experiences. Passionate about React, Django, and creating elegant solutions.",
-  image = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630&fit=crop",
+  title = "RiverFlow | Desarrollo web full stack",
+  description = "Portafolio de desarrollo web con React, TypeScript y Django.",
+  image,
   url = "https://riverflow.dev",
   type = "website",
   author = "RiverFlow",
   schema
 }: SEOProps): JSX.Element {
+  const socialImage = image ?? new URL(`${import.meta.env.BASE_URL}Ecommerce-Screenshot.png`, url).href;
   const jsonLd = schema ? JSON.stringify(schema) : null;
 
   return (
@@ -33,28 +34,26 @@ export function SEO({
       {/* Open Graph */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={socialImage} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="RiverFlow Portfolio" />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content="es_ES" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={socialImage} />
       <meta name="twitter:creator" content="@riverflow" />
 
       {/* Additional */}
       <meta name="robots" content="index, follow" />
       <meta name="googlebot" content="index, follow" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
       {/* Preconnect for performance */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link rel="preconnect" href="https://images.unsplash.com" />
 
       {/* JSON-LD Schema */}
       {jsonLd && (

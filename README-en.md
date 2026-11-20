@@ -88,7 +88,7 @@ portafolio/
 - **Architecture:** SPA with React 18 + Vite + TypeScript strict mode
 - **Backend:** Django 5 + DRF 3.14 + PostgreSQL (SQLite in dev)
 - **Animations:** IntersectionObserver for scroll-reveal, typewriter in Hero
-- **SEO:** Dynamic meta tags, JSON-LD, sitemap, robots.txt, PWA service worker
+- **SEO:** Dynamic meta tags, JSON-LD, sitemap, robots.txt
 - **Performance:** Lazy image loading, code splitting, prefers-reduced-motion
 - **Design:** CSS token system, Archivo + Space Grotesk typography
 - **API Integration:** Vite proxy in dev; relative paths (`/api/...`)

@@ -1,214 +1,174 @@
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, Github, ArrowUpRight, X, Clock } from "lucide-react";
-import { LazyImage } from "../components/LazyImage";
+import { ArrowUpRight, ExternalLink, Github, X } from "lucide-react";
 import portfolioData from "../data/portfolio.json";
 
-interface Project {
-  title: string;
-  image: string;
-  description: string;
-  problem: string;
-  solution: string;
-  results: { performance: string; loadTime: string; uptime: string };
-  tech: string[];
-  github: string;
-  demo: string;
-  difficulty: "Easy" | "Medium" | "Hard";
-  timeToBuild: string;
-  features: string[];
+type Project = (typeof portfolioData.projects)[number];
+
+function ProjectImage({ project }: { project: Project }) {
+  return (
+    <img
+      src={`${import.meta.env.BASE_URL}${project.image}`}
+      alt={`Captura de ${project.title}`}
+      className="h-full w-full object-cover object-top"
+      loading="lazy"
+      decoding="async"
+    />
+  );
 }
 
-function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
-
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
+function ProjectLinks({ project }: { project: Project }) {
+  const linkClass = "inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)]";
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8">
-      <div className="absolute inset-0 bg-[var(--bg-primary)]/90 backdrop-blur-sm" onClick={onClose} role="button" aria-label="Cerrar modal" />
-      
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass rounded-3xl">
-        <button
-          onClick={onClose}
-          className="cursor-pointer absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-all duration-300 active:scale-[0.95]"
-          aria-label="Cerrar"
-        >
-          <X className="w-5 h-5" />
-        </button>
-        
-        <div className="relative h-52 sm:h-64 overflow-hidden rounded-t-3xl">
-          <LazyImage src={project.image} alt={project.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/50 to-transparent" />
-          <div className="absolute bottom-5 left-5 right-5">
-            <h3 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">{project.title}</h3>
-          </div>
-        </div>
-
-        <div className="p-6 sm:p-8 space-y-6">
-          <div className="flex flex-wrap gap-3 text-sm">
-            <span className="px-3 py-1.5 rounded-full border bg-[var(--bg-tertiary)] border-[var(--border)] text-[var(--text-secondary)]">
-              {project.difficulty}
-            </span>
-            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-secondary)]">
-              <Clock className="w-3.5 h-3.5" />{project.timeToBuild}
-            </span>
-          </div>
-
-          <div className="space-y-3">
-            <div>
-              <h4 className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Problema</h4>
-              <p className="text-sm text-[var(--text-muted)]">{project.problem}</p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-[var(--text-secondary)] mb-1">Solución</h4>
-              <p className="text-sm text-[var(--text-muted)]">{project.solution}</p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-[var(--text-secondary)] mb-2">Resultados</h4>
-              <div className="flex gap-4 text-xs">
-                <div className="flex flex-col">
-                  <span className="text-[var(--accent)] font-semibold">{project.results.performance}</span>
-                  <span className="text-[var(--text-muted)]">Performance</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[var(--accent)] font-semibold">{project.results.loadTime}</span>
-                  <span className="text-[var(--text-muted)]">Load Time</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[var(--accent)] font-semibold">{project.results.uptime}</span>
-                  <span className="text-[var(--text-muted)]">Uptime</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <span key={tech} className="px-3 py-1.5 text-xs rounded-lg bg-[var(--accent-subtle)] border border-[var(--border-hover)] text-[var(--accent)]">{tech}</span>
-            ))}
-          </div>
-
-          <div className="flex gap-3 pt-4 border-t border-[var(--border)]">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="group cursor-pointer flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-secondary)] text-sm font-medium hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] hover:bg-[var(--accent-subtle)] transition-all duration-300">
-              <Github className="w-4 h-4" />Codigo
-            </a>
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="group cursor-pointer flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-xl bg-[var(--accent)] text-[var(--text-primary)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-all duration-300 active:scale-[0.98]">
-              <ExternalLink className="w-4 h-4" />Demo en vivo
-            </a>
-          </div>
-        </div>
-      </div>
+    <div className="flex flex-wrap gap-x-3">
+      <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Demo de ${project.title} (nueva pestaña)`} className={linkClass}>
+        <ExternalLink size={16} aria-hidden="true" /> Demo
+      </a>
+      <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`Código de ${project.title} (nueva pestaña)`} className={linkClass}>
+        <Github size={16} aria-hidden="true" /> Código
+      </a>
     </div>
   );
 }
 
-function ProjectCard({ project, index, isVisible, onClick }: { project: Project; index: number; isVisible: boolean; onClick: () => void }) {
+function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    if (!dialog.open) dialog.showModal();
+    closeRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
   return (
-    <button
-      className={`group cursor-pointer w-full text-left rounded-2xl overflow-hidden bg-[var(--bg-secondary)] border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-500 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      onClick={onClick}
-      style={{ transitionDelay: `${index * 100}ms` }}
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="project-dialog-title"
+      onClose={onClose}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) event.currentTarget.close();
+      }}
+      className="m-auto max-h-[90dvh] w-[calc(100%_-_2rem)] max-w-2xl overflow-y-auto rounded-3xl border border-[var(--border)] bg-[var(--bg-secondary)] p-0 text-[var(--text-primary)] backdrop:bg-black/80 backdrop:backdrop-blur-sm"
     >
-      <div className="relative h-40 overflow-hidden">
-        <LazyImage src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/30 to-transparent" />
-        <div className="absolute top-4 right-4 w-10 h-10 rounded-xl bg-[var(--bg-primary)]/80 backdrop-blur-sm border border-[var(--border)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-          <ArrowUpRight className="w-4 h-4 text-[var(--accent)]" />
-        </div>
-      </div>
-      
-      <div className="p-6 space-y-4">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300">{project.title}</h3>
-        </div>
-        
-        <p className="text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed">
-          {project.description}
-        </p>
-        
-        <div className="flex flex-wrap gap-2">
-          {project.tech.slice(0, 3).map((tech) => (
-            <span key={tech} className="px-2.5 py-1 text-xs rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-muted)] border border-[var(--border)]">{tech}</span>
-          ))}
+      <div className="relative">
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={() => dialogRef.current?.close()}
+          aria-label="Cerrar caso de estudio"
+          className="absolute right-4 top-4 z-10 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] hover:border-[var(--accent)]"
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
+
+        <div className="aspect-video overflow-hidden">
+          <ProjectImage project={project} />
         </div>
 
-        <div className="flex items-center gap-4 pt-3 border-t border-[var(--border)]">
-          <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
-            <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-            {project.difficulty}
+        <div className="space-y-5 p-6 sm:p-8">
+          <header>
+            <h3 id="project-dialog-title" className="text-2xl font-bold sm:text-3xl">{project.title}</h3>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">Tiempo de desarrollo {project.timeToBuild}</p>
+          </header>
+
+          <div className="space-y-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+            <div>
+              <h4 className="mb-1 font-semibold text-[var(--text-primary)]">Problema</h4>
+              <p>{project.problem}</p>
+            </div>
+            <div>
+              <h4 className="mb-1 font-semibold text-[var(--text-primary)]">Mi aportación</h4>
+              <p>{project.solution}</p>
+            </div>
+            <div>
+              <h4 className="mb-1 font-semibold text-[var(--text-primary)]">Funcionalidades</h4>
+              <ul className="list-disc space-y-1 pl-5">
+                {project.features.map((feature) => <li key={feature}>{feature}</li>)}
+              </ul>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
-            <Clock className="w-3.5 h-3.5" />{project.timeToBuild}
-          </div>
+
+          <ProjectLinks project={project} />
         </div>
       </div>
-    </button>
+    </dialog>
+  );
+}
+
+function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
+  return (
+    <article className="flex min-w-0 flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] transition-colors hover:border-[var(--border-hover)]">
+      <div className="aspect-video overflow-hidden rounded-t-2xl">
+        <ProjectImage project={project} />
+      </div>
+
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        <h3 className="text-lg font-semibold text-[var(--text-primary)]">{project.title}</h3>
+        <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.description}</p>
+        <ul aria-label="Tecnologías" className="flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <li key={tech} className="rounded-lg border border-[var(--border)] bg-[var(--bg-tertiary)] px-2.5 py-1 text-xs text-[var(--text-secondary)]">{tech}</li>
+          ))}
+        </ul>
+
+        <div className="mt-auto border-t border-[var(--border)] pt-2">
+          <ProjectLinks project={project} />
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-label={`Ver caso de estudio de ${project.title}`}
+            onClick={(event) => {
+              event.currentTarget.focus();
+              onOpen();
+            }}
+            className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[var(--text-primary)] underline decoration-[var(--accent)] underline-offset-4 hover:decoration-2"
+          >
+            Ver caso de estudio <ArrowUpRight size={16} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 }
 
 export function Projects(): JSX.Element {
-  const projects: Project[] = portfolioData.projects.map(p => ({
-    ...p,
-    difficulty: p.difficulty as "Easy" | "Medium" | "Hard"
-  }));
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    }, { threshold: 0.1 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="projects" ref={sectionRef} className="section-padding-lg scroll-offset relative" aria-labelledby="projects-heading">
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
+    <section id="projects" className="section-padding-lg scroll-offset relative" aria-labelledby="projects-heading">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>
 
       <div className="container-main relative z-10">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-[var(--accent)] font-mono text-lg">#</span>
-          <span className="text-[var(--text-muted)] font-mono text-sm tracking-wider">projects</span>
-        </div>
-
-        <h2 id="projects-heading" className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-16 tracking-tight">
+        <h2 id="projects-heading" className="mb-10 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl lg:text-6xl">
           Proyectos
         </h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard 
-              key={project.title}
-              project={project} 
-              index={index}
-              isVisible={isVisible}
-              onClick={() => setSelectedProject(project)}
-            />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {portfolioData.projects.map((project) => (
+            <ProjectCard key={project.title} project={project} onOpen={() => setSelectedProject(project)} />
           ))}
         </div>
 
-        <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <a 
-            href="https://github.com/RiverFlow96" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="group cursor-pointer inline-flex items-center gap-2.5 px-6 py-3 rounded-full border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-all duration-300"
+        <div className="mt-12 text-center">
+          <a
+            href={`https://github.com/${portfolioData.config.githubUsername}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 rounded-full border border-[var(--border)] px-6 py-3 text-sm font-medium text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
           >
-            Ver mas en GitHub 
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            Ver más en GitHub
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
       </div>

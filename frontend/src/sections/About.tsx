@@ -116,7 +116,7 @@ export function About(): JSX.Element {
       className="section-padding-lg scroll-offset relative"
       aria-labelledby="about-heading"
     >
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>
 
@@ -124,7 +124,7 @@ export function About(): JSX.Element {
         <div className="flex items-center gap-3 mb-6">
           <span className="text-[var(--accent)] font-mono text-lg">#</span>
           <span className="text-[var(--text-muted)] font-mono text-sm tracking-wider">
-            about
+            perfil
           </span>
         </div>
 
@@ -132,7 +132,7 @@ export function About(): JSX.Element {
           id="about-heading"
           className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-16 tracking-tight"
         >
-          Sobre <span className="text-gradient">mi</span>
+          Sobre <span className="text-gradient">mí</span>
         </h2>
 
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 lg:gap-24">

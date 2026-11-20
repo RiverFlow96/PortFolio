@@ -294,7 +294,7 @@ export default function OrbitingSkills() {
   ];
 
   return (
-    <main className="w-full flex items-center justify-center overflow-hidden">
+    <div className="w-full flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div 
           className="absolute inset-0" 
@@ -348,6 +348,6 @@ export default function OrbitingSkills() {
           );
         })}
       </div>
-    </main>
+    </div>
   );
 }

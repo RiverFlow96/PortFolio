@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
+import portfolioData from "../data/portfolio.json";
 import { useMergedProfile, useCTA } from "../data/usePortfolio";
 
 export function Hero(): JSX.Element {
   const profile = useMergedProfile();
   const cta = useCTA();
+  const featuredProject = portfolioData.projects[0];
   const [text, setText] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -13,6 +15,11 @@ export function Hero(): JSX.Element {
     setIsLoaded(true);
     let index = 0;
     const fullText = profile.tagline;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setText(fullText);
+      setIsTypingComplete(true);
+      return;
+    }
     const interval = setInterval(() => {
       if (index <= fullText.length) {
         setText(fullText.slice(0, index));
@@ -26,7 +33,7 @@ export function Hero(): JSX.Element {
   }, [profile.tagline]);
 
   const scrollToNext = (): void => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("about")?.scrollIntoView();
   };
 
   return (
@@ -35,7 +42,7 @@ export function Hero(): JSX.Element {
       className="min-h-[100dvh] flex items-center justify-center relative overflow-hidden"
       aria-label="Sección de presentación"
     >
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)] opacity-60" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_var(--accent-dim)_0%,_transparent_70%)] opacity-40" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_50%)] animate-float" />
@@ -139,9 +146,9 @@ export function Hero(): JSX.Element {
               <div className="absolute inset-0 bg-[var(--accent)] blur-[100px] opacity-20 rounded-full" />
               <div className="relative w-[320px] h-[320px] rounded-3xl overflow-hidden border border-[var(--border)]">
                 <img
-                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&q=80"
-                  alt="Code workspace"
-                  className="w-full h-full object-cover"
+                  src={`${import.meta.env.BASE_URL}${featuredProject.image}`}
+                  alt={`Captura de ${featuredProject.title}`}
+                  className="w-full h-full object-cover object-left-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
               </div>
@@ -149,9 +156,9 @@ export function Hero(): JSX.Element {
                 className="absolute -bottom-6 -right-6 glass rounded-2xl px-5 py-3 animate-float"
                 style={{ animationDelay: "0.5s" }}
               >
-                <p className="text-xs text-[var(--text-muted)]">Stack actual</p>
+                <p className="text-xs text-[var(--text-muted)]">Proyecto destacado</p>
                 <p className="text-sm font-semibold text-[var(--text-primary)]">
-                  React + Django
+                  {featuredProject.title}
                 </p>
               </div>
             </div>

@@ -37,7 +37,7 @@ export function Footer(): JSX.Element {
               {[
                 { label: "Sobre mi", href: "#about" },
                 { label: "Proyectos", href: "#projects" },
-                { label: "Stack", href: "#stack" },
+                { label: "Tecnologías", href: "#stack" },
                 { label: "Contacto", href: "#contact" },
               ].map((item) => (
                 <li key={item.href}>

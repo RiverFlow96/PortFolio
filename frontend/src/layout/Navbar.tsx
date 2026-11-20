@@ -20,7 +20,7 @@ export function Navbar(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const sections = ["about", "stack", "projects", "contact"];
+    const sections = ["about", "projects", "stack", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,8 +49,8 @@ export function Navbar(): JSX.Element {
 
   const navItems: NavItem[] = [
     { label: "Sobre mí", href: "#about" },
-    { label: "Stack", href: "#stack" },
     { label: "Proyectos", href: "#projects" },
+    { label: "Tecnologías", href: "#stack" },
     { label: "Contacto", href: "#contact" },
   ];
 
@@ -66,7 +66,7 @@ export function Navbar(): JSX.Element {
             : "bg-transparent"
         }`}
         role="navigation"
-        aria-label="Main navigation"
+        aria-label="Navegación principal"
       >
         <div className="max-w-5xl mx-auto px-5 py-3.5 flex justify-between items-center">
           <a href="#" className="flex items-center gap-3 hover:opacity-80 transition-all duration-500 cursor-pointer group">
@@ -107,6 +107,7 @@ export function Navbar(): JSX.Element {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <div className="relative w-5 h-5">
               <span className={`absolute left-0 w-full h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? "top-1/2 rotate-45" : "top-0"}`} style={{ top: mobileMenuOpen ? "50%" : "0", transform: mobileMenuOpen ? "translateY(-50%)" : "" }} />
@@ -117,9 +118,11 @@ export function Navbar(): JSX.Element {
         </div>
       </nav>
 
-      <div
+      <nav
+        id="mobile-navigation"
+        aria-label="Navegación móvil"
         className={`fixed inset-0 z-[90] glass-strong transition-all duration-500 ${
-          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          mobileMenuOpen ? "visible opacity-100 pointer-events-auto" : "invisible opacity-0 pointer-events-none"
         }`}
       >
         <div className="flex flex-col items-center justify-center min-h-screen py-24">
@@ -152,7 +155,7 @@ export function Navbar(): JSX.Element {
             </a>
           </div>
         </div>
-      </div>
+      </nav>
     </>
   );
 }

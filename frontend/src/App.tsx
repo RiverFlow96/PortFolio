@@ -7,8 +7,8 @@ function App(): JSX.Element {
     "@type": "Person",
     "name": "RiverFlow",
     "url": "https://riverflow.dev",
-    "jobTitle": "Fullstack Developer",
-    "description": "Developer-Designer passionate about building fast, scalable web experiences",
+    "jobTitle": "Desarrollador web full stack",
+    "description": "Desarrollo y diseño de aplicaciones web con React y Django",
     "sameAs": [
       "https://github.com/RiverFlow96",
       "https://linkedin.com/in/riverflow",
@@ -20,8 +20,8 @@ function App(): JSX.Element {
   return (
     <>
       <SEO 
-        title="RiverFlow | Developer-Designer Fullstack"
-        description="Building Fast, Scalable Web Experiences. Passionate about React, Django, and creating elegant solutions."
+        title="RiverFlow | Desarrollo web full stack"
+        description="Portafolio de desarrollo web con React, TypeScript y Django."
         schema={schema}
       />
       <Router />

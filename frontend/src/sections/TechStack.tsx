@@ -128,7 +128,7 @@ export function TechStack(): JSX.Element {
         className="section-padding-lg scroll-offset relative"
         aria-labelledby="stack-heading"
       >
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>
 
@@ -136,7 +136,7 @@ export function TechStack(): JSX.Element {
         <div className="flex items-center gap-3 mb-6">
           <span className="text-[var(--accent)] font-mono text-lg">#</span>
           <span className="text-[var(--text-muted)] font-mono text-sm tracking-wider">
-            tech-stack
+            herramientas
           </span>
         </div>
 
@@ -144,7 +144,7 @@ export function TechStack(): JSX.Element {
           id="stack-heading"
           className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-16 tracking-tight"
         >
-          Tecnologias
+          Tecnologías
         </h2>
 
         <div

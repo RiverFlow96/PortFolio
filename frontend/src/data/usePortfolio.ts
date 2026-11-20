@@ -208,11 +208,11 @@ export function useMergedProfile(): Profile {
 
   return {
     name: user.name || user.login,
-    title: user.bio?.split('\n')[0] || fallback.title,
-    tagline: user.bio?.split('\n')[1] || fallback.tagline,
-    bio: user.bio ? [user.bio] : fallback.bio,
+    title: fallback.title,
+    tagline: fallback.tagline,
+    bio: fallback.bio,
     location: user.location || fallback.location,
-    status: 'Open to projects',
+    status: fallback.status,
     avatar: user.avatar_url,
     stats: {
       repos: stats.totalRepos,
@@ -232,8 +232,7 @@ export function usePortfolio() {
 }
 
 export function useCTA() {
-  const data = portfolioData as any;
-  return data.cta || { primary: { text: 'Explorar Stack', href: '#stack' }, secondary: { text: 'Ver Proyectos', href: '#projects' } };
+  return portfolioData.cta;
 }
 
 export function useSocial() {

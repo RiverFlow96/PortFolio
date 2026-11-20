@@ -111,7 +111,7 @@ export function HowIWork(): JSX.Element {
       ref={sectionRef}
       className="section-padding-lg scroll-offset relative overflow-hidden"
     >
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_var(--accent-subtle)_0%,_transparent_70%)]" />
       </div>
 
@@ -119,10 +119,10 @@ export function HowIWork(): JSX.Element {
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-[var(--accent)] font-mono text-lg">#</span>
-            <span className="text-[var(--text-muted)] font-mono text-sm tracking-wider">methodology</span>
+            <span className="text-[var(--text-muted)] font-mono text-sm tracking-wider">metodología</span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-6 tracking-tight">
-            Como <span className="text-gradient">trabajo</span>
+            Cómo <span className="text-gradient">trabajo</span>
           </h2>
           <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-lg">
             Mi proceso es iterativo, enfocado en entrega de calidad desde la ideacion hasta la produccion.
@@ -165,15 +165,15 @@ export function HowIWork(): JSX.Element {
           <h3 className="text-xl font-bold text-[var(--text-primary)] mb-6 text-center">Principios Fundamentales</h3>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">Performance First</p>
+              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">Rendimiento</p>
               <p className="text-sm text-[var(--text-secondary)]">Optimizo desde el inicio, mido constantemente y busco mejorar continuamente.</p>
             </div>
             <div className="text-center">
-              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">Clean Code</p>
-              <p className="text-sm text-[var(--text-secondary)]">Codigo legible, modular y mantenible. Documentacion clara y tests completos.</p>
+              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">Código mantenible</p>
+              <p className="text-sm text-[var(--text-secondary)]">Código legible, modular y mantenible. Documentación clara y pruebas.</p>
             </div>
             <div className="text-center">
-              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">User Focused</p>
+              <p className="font-semibold text-[var(--accent)] text-sm uppercase tracking-wider mb-3">Diseño centrado en las personas</p>
               <p className="text-sm text-[var(--text-secondary)]">Siempre pienso en UX, accesibilidad y experiencia del usuario final.</p>
             </div>
           </div>

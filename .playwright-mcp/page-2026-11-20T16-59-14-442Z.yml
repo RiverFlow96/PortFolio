@@ -1,0 +1,23 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - heading [level=1] [ref=f4e3]:
+      - link "Superpowers Brainstorming" [ref=f4e4] [cursor=pointer]:
+        - /url: https://github.com/obra/superpowers
+    - generic [ref=f4e5]: Connected
+  - generic [ref=f4e7]:
+    - heading "¿Qué encuadre muestra mejor FreeMarket?" [level=2] [ref=f4e8]
+    - paragraph [ref=f4e9]: La captura original es panorámica y hoy se recorta dentro de un marco cuadrado.
+    - generic [ref=f4e10]:
+      - generic [ref=f4e11] [cursor=pointer]:
+        - generic [ref=f4e12]: A
+        - generic [ref=f4e13]:
+          - heading "Mostrar la captura completa" [level=3] [ref=f4e14]
+          - paragraph [ref=f4e15]: Conservar el marco cuadrado y encajar toda la imagen, sin cortar contenido.
+          - img "Captura completa de FreeMarket encajada en un marco cuadrado" [ref=f4e17]
+      - generic [ref=f4e18] [cursor=pointer]:
+        - generic [ref=f4e19]: B
+        - generic [ref=f4e20]:
+          - heading "Usar un marco panorámico" [level=3] [ref=f4e21]
+          - paragraph [ref=f4e22]: Ajustar la forma del marco a la captura para que se vea más grande y completa.
+          - img "Captura completa de FreeMarket en un marco panorámico" [ref=f4e24]
+  - generic [ref=f4e25]: Click an option above, then return to the terminal

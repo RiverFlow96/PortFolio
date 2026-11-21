@@ -144,11 +144,11 @@ export function Hero(): JSX.Element {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-[var(--accent)] blur-[100px] opacity-20 rounded-full" />
-              <div className="relative w-[320px] h-[320px] rounded-3xl overflow-hidden border border-[var(--border)]">
+              <div className="relative w-[min(42vw,480px)] aspect-[1.7/1] rounded-3xl overflow-hidden border border-[var(--border)] bg-[var(--bg-secondary)]">
                 <img
                   src={`${import.meta.env.BASE_URL}${featuredProject.image}`}
                   alt={`Captura de ${featuredProject.title}`}
-                  className="w-full h-full object-cover object-left-top"
+                  className="w-full h-full object-contain object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
               </div>

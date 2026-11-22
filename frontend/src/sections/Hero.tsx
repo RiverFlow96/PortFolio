@@ -39,7 +39,7 @@ export function Hero(): JSX.Element {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[100dvh] flex items-center justify-center relative overflow-hidden"
+      className="min-h-[100dvh] pt-24 pb-16 flex items-center justify-center relative overflow-hidden"
       aria-label="Sección de presentación"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -49,7 +49,7 @@ export function Hero(): JSX.Element {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
+        <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-center">
           <div className="space-y-8">
             <div
               className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[var(--accent-dim)] border border-[var(--border-hover)] transition-all duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
@@ -67,7 +67,7 @@ export function Hero(): JSX.Element {
               <p className="text-sm font-medium text-[var(--text-muted)] uppercase tracking-widest">
                 Hola, soy
               </p>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[var(--text-primary)] tracking-tight leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-[var(--text-primary)] tracking-tight leading-[1.1]">
                 <span className="block">{profile.name}</span>
                 <span className="text-gradient block mt-2">
                   {profile.displayName}
@@ -140,11 +140,11 @@ export function Hero(): JSX.Element {
           </div>
 
           <div
-            className={`hidden lg:flex justify-end transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+            className={`hidden md:flex justify-end transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
           >
             <div className="relative">
               <div className="absolute inset-0 bg-[var(--accent)] blur-[100px] opacity-20 rounded-full" />
-              <div className="relative w-[min(42vw,480px)] aspect-[1.7/1] rounded-3xl overflow-hidden border border-[var(--border)] bg-[var(--bg-secondary)]">
+              <div className="relative w-[min(34vw,480px)] aspect-[1.7/1] rounded-3xl overflow-hidden border border-[var(--border)] bg-[var(--bg-secondary)]">
                 <img
                   src={`${import.meta.env.BASE_URL}${featuredProject.image}`}
                   alt={`Captura de ${featuredProject.title}`}

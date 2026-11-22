@@ -30,6 +30,10 @@ pnpm-debug.log*
 # Build outputs
 frontend/dist/
 frontend/.cache/
+frontend/test-results/
+frontend/playwright-report/
+frontend/.vite/
+.playwright-mcp/
 build/
 .next/
 out/

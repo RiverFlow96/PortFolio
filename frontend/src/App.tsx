@@ -6,13 +6,12 @@ function App(): JSX.Element {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "RiverFlow",
-    "url": "https://riverflow.dev",
+    "url": "https://portfolio-p6iv.onrender.com/",
     "jobTitle": "Desarrollador web full stack",
     "description": "Desarrollo y diseño de aplicaciones web con React y Django",
     "sameAs": [
       "https://github.com/RiverFlow96",
-      "https://linkedin.com/in/riverflow",
-      "https://twitter.com/riverflow"
+      "https://linkedin.com/in/riverflow96"
     ],
     "knowsAbout": ["React", "TypeScript", "Django", "PostgreSQL", "Python"]
   };

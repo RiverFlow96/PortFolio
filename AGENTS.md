@@ -1,84 +1,35 @@
-# AGENTS.md
+# Repository guide
 
-Portfolio 2025 — React 18 + Vite + TypeScript SPA with a Django 5 backend. Personal portfolio for Yordany Almeda Riveron (RiverFlow). Currently on `main`.
-
----
+Portfolio for Yordany Almeda Riveron (RiverFlow), built as a static React 18, Vite, and TypeScript SPA. The active deployment is Render at `https://portfolio-p6iv.onrender.com/`. There is no Django backend in this repository.
 
 ## Commands
 
-All frontend commands run from `frontend/`:
+Run frontend commands from `frontend/`:
 
 ```bash
-npm run dev          # Vite HMR on :5173
-npm run type-check   # tsc --noEmit (run before commits; if it reports TypeScript errors, fix the strict typing issues rather than bypassing them)
-npm run build        # tsc && vite build
-npm run preview      # Preview production build
+npm run dev
+npm run type-check
+npm test
+npm run build
+npm run preview
 ```
 
-Backend from `backend/` (activate `.venv` first):
+## Frontend integration
 
-```bash
-python manage.py runserver  # :8000
-```
+- Vite's `@` alias maps to `frontend/src/`.
+- `frontend/src/data/portfolio.json` is the source of truth for portfolio profile, project, and contact information.
+- Public GitHub profile/repository data is fetched from GitHub's API and falls back to the local profile content if unavailable.
+- Contact submissions use FormSubmit; the recipient is configured in `portfolio.json` and may need to activate the service.
+- SEO metadata uses the active Render URL. Update canonical, structured data, `robots.txt`, and sitemap together when the public domain changes.
 
----
+## Design system
 
-## Dev Integration
+The actual CSS tokens live in `frontend/src/index.css`: near-black background, red accent, Geist type, and spring animation curves. Prefer these tokens to stale color/font references elsewhere.
 
-Vite proxies `/api` and `/media` to Django on `localhost:8000`. Always use relative paths (`/api/...`), never absolute URLs. `@` path alias maps to `src/` (configured in `vite.config.ts`).
+## Sections
 
----
+`frontend/src/pages/HomePage.tsx` composes Hero → About → HowIWork → Projects → TechStack → Contact. Preserve section IDs used by Navbar's IntersectionObserver.
 
-## Actual vs Documented Design System
+## Commits
 
-**Do NOT trust README colors.** The real CSS at `frontend/src/index.css:7-21`:
-
-- `--bg-primary: #080808` (near-black), `--accent: #e63946` (red)
-- Font: **Geist** (not Archivo/Space Grotesk as the README says)
-- Spring easing curves (`--spring-snappy`, `--spring-bounce`) used throughout
-
----
-
-## Frontend Structure
-
-Single-page composited in `pages/HomePage.tsx`. Section order: Hero → About → HowIWork → Projects → TechStack → Contact. Each section has an `id` attribute used by `layout/Navbar.tsx` for scroll tracking via IntersectionObserver.
-
-Key files:
-
-- `data/portfolio.json` — source of truth for projects, skills, contact data
-- `hooks/usePortfolio.ts` — GitHub API fetch, falls back to `portfolio.json` if rate-limited
-- `components/SEO.tsx` — react-helmet-async + JSON-LD; has GA placeholder `G-XXXXXXXXXX`
-- `components/ui/orbiting-skills.tsx` — 3D orbiting tech icons (TechStack wheel)
-
----
-
-## Known Issues
-
-- **No test setup exists** (Vitest + RTL — pending implementation)
-- **No CI/CD** (deploy is manual)
-
----
-
-## Backend Caveats
-
-`backend/apps/` contains only `__init__.py` — **no actual Django apps exist**. The routes registered in `config/urls.py` (`apps.users.urls`, `apps.listings.urls`, etc.) and `AUTH_USER_MODEL = 'users.User'` in `settings.py` will **404 / break** on any request. The backend is scaffolded but unimplemented.
-
-When working on frontend components that fetch from `/api`, either use hardcoded mock data or immediately implement the corresponding Django backend route, as all backend endpoints currently return 404.
-
-The Python virtual environment `.venv` lives at the repo root, not inside the `backend/` directory.
-
----
-
-## Commit Convention
-
-```
-<type>(<scope>): <description>
-```
-
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`. Scope is module folder (e.g., `frontend`, `backend`, `projects`). Imperative, lowercase, no period.
-
----
-
-## References
-
-- `frontend/AGENTS.md` — frontend-specific detail
+Use `<type>(<scope>): <imperative description>` with lowercase text and no trailing period.

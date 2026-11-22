@@ -29,6 +29,15 @@ export interface GitHubRepo {
   updated_at: string;
 }
 
+type GitHubDataResult = {
+  user: GitHubUser | null;
+  repos: GitHubRepo[] | null;
+  stats: GitHubStats | null;
+  error: string | null;
+};
+
+const githubDataRequests = new Map<string, Promise<GitHubDataResult>>();
+
 export interface GitHubStats {
   totalRepos: number;
   totalStars: number;
@@ -74,12 +83,7 @@ interface FetchState<T> {
   error: string | null;
 }
 
-export async function fetchGitHubData(username: string): Promise<{
-  user: GitHubUser | null;
-  repos: GitHubRepo[] | null;
-  stats: GitHubStats | null;
-  error: string | null;
-}> {
+async function requestGitHubData(username: string): Promise<GitHubDataResult> {
   try {
     const headers = {
       'Accept': 'application/vnd.github.v3+json',
@@ -91,11 +95,18 @@ export async function fetchGitHubData(username: string): Promise<{
     }
     const user: GitHubUser = await userRes.json();
 
-    const reposRes = await fetch(
-      `https://api.github.com/users/${username}/repos?sort=stars&per_page=30`,
-      { headers }
-    );
-    const repos: GitHubRepo[] = reposRes.ok ? await reposRes.json() : [];
+    const repos: GitHubRepo[] = [];
+    let reposUrl: string | null = `https://api.github.com/users/${username}/repos?sort=stars&per_page=100`;
+    while (reposUrl) {
+      const reposRes: Response = await fetch(reposUrl, { headers });
+      if (!reposRes.ok) {
+        throw new Error(`Repositories request failed: ${reposRes.status}`);
+      }
+      repos.push(...(await reposRes.json() as GitHubRepo[]));
+      const nextLink = reposRes.headers.get("Link")?.split(",")
+        .find((link) => link.includes('rel="next"'));
+      reposUrl = nextLink?.match(/<([^>]+)>/)?.[1] ?? null;
+    }
 
     const stats: GitHubStats = {
       totalRepos: user.public_repos,
@@ -118,6 +129,15 @@ export async function fetchGitHubData(username: string): Promise<{
       error: error instanceof Error ? error.message : 'Unknown error'
     };
   }
+}
+
+export function fetchGitHubData(username: string): Promise<GitHubDataResult> {
+  let request = githubDataRequests.get(username);
+  if (!request) {
+    request = requestGitHubData(username);
+    githubDataRequests.set(username, request);
+  }
+  return request;
 }
 
 export function useGitHubData() {
@@ -268,7 +288,7 @@ export function useTechFromGitHub(): string[] {
 
 export function useContactConfig() {
   return (portfolioData as any).contact || {
-    email: 'contact@riverflow.dev',
+    email: 'yordanyalmeda8@gmail.com',
     subject: 'Nuevo mensaje desde tu portfolio',
     successMessage: 'Mensaje enviado correctamente. Gracias por contactarme.',
     errorMessage: 'Algo salió mal. Intenta de nuevo.'

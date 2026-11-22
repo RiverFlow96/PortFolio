@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://riverflow.dev/sitemap.xml
+Sitemap: https://portfolio-p6iv.onrender.com/sitemap.xml
 
 # Crawl-delay: 1
 

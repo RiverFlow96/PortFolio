@@ -1,8 +1,10 @@
 import { RiverFlowLogo } from "../components/RiverFlowLogo";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
+import { useContactConfig } from "../data/usePortfolio";
 
 export function Footer(): JSX.Element {
   const currentYear = new Date().getFullYear();
+  const contactConfig = useContactConfig();
 
   return (
     <footer className="relative border-t border-[var(--border)] bg-[var(--bg-primary)] p-10">
@@ -65,12 +67,12 @@ export function Footer(): JSX.Element {
                   icon: FaGithub,
                 },
                 {
-                  href: "https://linkedin.com/in/riverflow",
+                  href: "https://linkedin.com/in/riverflow96",
                   label: "LinkedIn",
                   icon: FaLinkedin,
                 },
                 {
-                  href: "mailto:contact@riverflow.dev",
+                  href: `mailto:${contactConfig.email}`,
                   label: "Email",
                   icon: FaEnvelope,
                 },

@@ -15,7 +15,7 @@ export function SEO({
   title = "RiverFlow | Desarrollo web full stack",
   description = "Portafolio de desarrollo web con React, TypeScript y Django.",
   image,
-  url = "https://riverflow.dev",
+  url = "https://portfolio-p6iv.onrender.com/",
   type = "website",
   author = "RiverFlow",
   schema
@@ -59,20 +59,6 @@ export function SEO({
       {jsonLd && (
         <script type="application/ld+json">{jsonLd}</script>
       )}
-    </Helmet>
-  );
-}
-
-export function Analytics(): JSX.Element {
-  return (
-    <Helmet>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
-      <script>{`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-      `}</script>
     </Helmet>
   );
 }

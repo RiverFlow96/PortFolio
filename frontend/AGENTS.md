@@ -1,75 +1,33 @@
-# Frontend AGENTS.md
+# Frontend guide
 
-See [root AGENTS.md](../AGENTS.md) for full project context. This file covers frontend-specific details only.
+See the [repository guide](../AGENTS.md) for shared project context.
 
----
+## Commands
 
-## Commands (run from `frontend/`)
+Run from `frontend/`:
 
 ```bash
-npm run dev          # Vite HMR on :5173
-npm run type-check   # tsc --noEmit (required before commits)
-npm run build        # tsc && vite build
-npm run preview      # Preview production build
+npm run dev
+npm run type-check
+npm run test
+npm run build
+npm run preview
 ```
 
----
+`npm test` runs Vitest component/data tests and Playwright browser tests. Playwright uses the installed Google Chrome at `/usr/bin/google-chrome-stable` in this environment.
 
 ## Structure
 
-```
-src/
-├── pages/HomePage.tsx         # Root page composing all sections
-├── sections/                  # Hero → About → HowIWork → Projects → TechStack → Contact
-├── layout/                    # Navbar (IntersectionObserver scroll tracking) + Footer
-├── components/                # SEO, LazyImage, FloatingParticles, Terminal, ui/
-├── hooks/                     # usePortfolio (GitHub API + JSON fallback)
-├── data/portfolio.json        # Source of truth (projects, skills, contact)
-├── router/router.tsx          # Single route `/`
-├── index.css                  # Design tokens, animations, Tailwind layers
-├── App.tsx                    # Root component
-└── main.tsx                   # Entry point (StrictMode, SEOProvider, SW register)
-```
+- `src/pages/HomePage.tsx`: composes all page sections.
+- `src/sections/`: Hero, About, HowIWork, Projects, TechStack, Contact.
+- `src/layout/`: Navbar and Footer.
+- `src/data/portfolio.json`: local source of truth for portfolio content.
+- `src/data/usePortfolio.ts`: shared GitHub requests with local fallback.
+- `src/components/SEO.tsx`: canonical, social metadata, and JSON-LD.
 
----
+## UI conventions
 
-## Design System (real — not what README says)
-
-File: `src/index.css:7-27`. **Do NOT trust the README colors:**
-
-```css
---bg-primary: #080808      /* Near-black */
---accent: #e63946          /* Red/crimson */
---text-primary: #f5f5f5
---text-secondary: #a0a0a0
-```
-
-- **Font:** Geist (imported from Google Fonts) — not Archivo/Space Grotesk
-- **Easing:** Spring curves (`--spring-snappy`, `--spring-bounce`) used for animations
-- `prefers-reduced-motion` respected in CSS (line 34-44)
-
----
-
-## Key Patterns
-
-- **Section IDs:** Each section has `id="{name}"` → `Navbar.tsx` derives active state via IntersectionObserver. Never hardcode the section list.
-- **Data source:** `data/portfolio.json` is ground truth. The GitHub API hook (`usePortfolio.ts`) tries live fetch first, falls back to JSON. Never hardcode data in JSX.
-- **API calls:** Always relative (`/api/...`). Vite proxies to Django in dev. Never use `localhost:8000` directly.
-- **SEO:** `components/SEO.tsx` uses react-helmet-async + JSON-LD. GA ID placeholder `G-XXXXXXXXXX` needs replacement.
-
----
-
-## What's Missing
-
-- **No test setup** (Vitest + RTL — pending implementation)
-- **No linter/formatter config**
-
----
-
-## Adding a Section
-
-1. Create `sections/NewSection.tsx`
-2. Add to `pages/HomePage.tsx` in order
-3. Add `id="new-section"` for navbar scroll tracking
-4. Add data to `portfolio.json` if needed
-5. Run `npm run type-check`
+- Use relative, responsive layouts and preserve section IDs used by Navbar.
+- Follow CSS tokens in `src/index.css` (Geist, near-black background, red accent).
+- Respect `prefers-reduced-motion` and use semantic labels for controls.
+- Keep the active public URL consistent across canonical metadata, JSON-LD, `robots.txt`, and sitemap.
